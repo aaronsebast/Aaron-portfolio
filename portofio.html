@@ -1,0 +1,1511 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Aaron Sebastian</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Aaron Sebastian: cybersecurity graduate in Riga, Zero-Trust researcher and builder of AI agents and Telegram bots.">
+<meta property="og:title" content="Aaron Sebastian">
+<meta property="og:description" content="Cybersecurity graduate in Riga. Zero-Trust research, AI agents and Telegram bots.">
+<meta name="theme-color" content="#0d1714">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%230d1714' stroke='%23c6a463' stroke-width='3'/%3E%3Ctext x='32' y='41' font-family='Georgia' font-size='24' text-anchor='middle' fill='%23c6a463'%3EAS%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..800;1,6..96,400..700&family=Hanken+Grotesk:wght@300..700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout concept: an engraved security dossier. Banknote guilloché rosettes, ruled ledger
+   rows and numbered case files, set in bottle-green ink with brass engraving. */
+:root {
+  --bg: #0d1714;          /* bottle-green ink */
+  --bg-2: #12201c;        /* raised panel */
+  --line: #24382f;        /* engraved rule */
+  --fg: #ece5d3;          /* banknote paper */
+  --muted: #9aab9f;       /* faded ink */
+  --brass: #c6a463;       /* engraving brass */
+  --brass-2: #e3c88d;     /* polished brass */
+  --alert: #d0705a;       /* breach red, used only in the lab */
+  --ok: #7fb58f;          /* contained */
+  --shadow: rgba(0,0,0,.45);
+  --font-display: "Bodoni Moda", "Didot", "Bodoni 72", Georgia, serif;
+  --font-body: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --step-0: clamp(1rem, .96rem + .2vw, 1.12rem);
+  --step-1: clamp(1.2rem, 1.1rem + .5vw, 1.5rem);
+  --step-2: clamp(1.6rem, 1.3rem + 1.4vw, 2.4rem);
+  --step-3: clamp(2.2rem, 1.6rem + 3vw, 4.2rem);
+  --step-4: clamp(3.4rem, 2rem + 9vw, 11rem);
+  --ease: cubic-bezier(.2,.7,.1,1);
+  --maxw: 1240px;
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --bg: #f1ece0; --bg-2: #e8e1d0; --line: #cfc6b0; --fg: #10261f; --muted: #52645a;
+    --brass: #8a6727; --brass-2: #6d5019; --alert: #b0442d; --ok: #2f7a4a; --shadow: rgba(40,30,10,.15);
+    color-scheme: light;
+  }
+}
+:root[data-theme="light"] {
+  --bg: #f1ece0; --bg-2: #e8e1d0; --line: #cfc6b0; --fg: #10261f; --muted: #52645a;
+  --brass: #8a6727; --brass-2: #6d5019; --alert: #b0442d; --ok: #2f7a4a; --shadow: rgba(40,30,10,.15);
+  color-scheme: light;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { -webkit-text-size-adjust: 100%; }
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+body {
+  margin: 0; background: var(--bg); color: var(--fg);
+  font-family: var(--font-body); font-size: var(--step-0); line-height: 1.6;
+  overflow-x: hidden; -webkit-font-smoothing: antialiased;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 60; background: var(--bg); }
+body::after { /* paper grain */
+  content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 90; opacity: .05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+::selection { background: var(--brass); color: var(--bg); }
+:focus-visible { outline: 2px solid var(--brass); outline-offset: 3px; border-radius: 2px; }
+.mono { font-family: var(--font-mono); font-size: .78em; letter-spacing: .06em; }
+em, .italic { font-style: italic; }
+kbd { font-family: var(--font-mono); border: 1px solid var(--line); border-radius: 4px; padding: 0 .35em; }
+
+.wrap {
+  max-width: var(--maxw); margin-inline: auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px), 4vw);
+  padding-right: max(16px, env(safe-area-inset-right, 0px), 4vw);
+}
+.section { padding-block: clamp(80px, 12vw, 170px); position: relative; }
+.section__head { display: grid; gap: 18px; margin-bottom: clamp(40px, 6vw, 80px); max-width: 900px; }
+.section__head--split { max-width: none; display: flex; justify-content: space-between; align-items: end; flex-wrap: wrap; gap: 24px; }
+.eyebrow {
+  margin: 0; font-family: var(--font-mono); font-size: .76rem; letter-spacing: .22em; text-transform: uppercase; color: var(--brass);
+  display: inline-flex; align-items: center; gap: 12px;
+}
+.eyebrow::before { content: ""; width: 32px; height: 1px; background: currentColor; }
+.hero__eyebrow::before { display: none; }
+.h2 { margin: 0; font-family: var(--font-display); font-weight: 500; font-size: var(--step-3); line-height: 1.02; letter-spacing: -.02em; text-wrap: balance; }
+.h2 em { color: var(--brass-2); font-weight: 400; }
+.lede { margin: 0; max-width: 60ch; color: var(--muted); font-size: var(--step-1); line-height: 1.5; font-weight: 300; }
+
+/* ---------- Loader ---------- */
+.loader {
+  position: fixed; inset: 0; z-index: 200; background: var(--bg);
+  display: grid; place-items: center; gap: 20px; align-content: center;
+}
+.loader__rosette { width: min(280px, 60vw); height: auto; aspect-ratio: 1; }
+.loader__meta { display: flex; gap: 40px; color: var(--muted); }
+.loader__count { color: var(--brass); font-variant-numeric: tabular-nums; }
+.no-js .loader, .loader.is-done { display: none; }
+
+/* ---------- Cursor ---------- */
+.cursor { position: fixed; inset: 0; pointer-events: none; z-index: 150; display: none; }
+.cursor__dot, .cursor__ring { position: fixed; top: 0; left: 0; border-radius: 50%; transform: translate(-50%, -50%); }
+.cursor__dot { width: 6px; height: 6px; background: var(--brass-2); }
+.cursor__ring { width: 38px; height: 38px; border: 1px solid var(--brass); transition: width .35s var(--ease), height .35s var(--ease), background .35s; }
+.cursor.is-hover .cursor__ring { width: 74px; height: 74px; background: color-mix(in srgb, var(--brass) 12%, transparent); }
+@media (hover: hover) and (pointer: fine) { .has-cursor .cursor { display: block; } .has-cursor, .has-cursor a, .has-cursor button { cursor: none; } }
+
+.progress { position: fixed; top: env(safe-area-inset-top, 0px); left: 0; height: 2px; width: 100%; background: var(--brass); transform-origin: 0 50%; transform: scaleX(0); z-index: 70; }
+
+/* ---------- Nav ---------- */
+.nav { position: fixed; top: env(safe-area-inset-top, 0px); left: 0; right: 0; z-index: 50; transition: background .4s, border-color .4s, transform .5s var(--ease); border-bottom: 1px solid transparent; }
+.nav.is-scrolled { background: color-mix(in srgb, var(--bg) 82%, transparent); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-color: var(--line); }
+.nav.is-hidden { transform: translateY(-110%); }
+.nav__inner { max-width: var(--maxw); margin-inline: auto; display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  padding-block: 14px; padding-left: max(16px, env(safe-area-inset-left, 0px), 4vw); padding-right: max(16px, env(safe-area-inset-right, 0px), 4vw); }
+.nav__mark { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.seal-sm { width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--brass); display: grid; place-items: center; font-family: var(--font-display); font-size: .85rem; color: var(--brass); position: relative; overflow: hidden; }
+.seal-sm img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.nav__name { font-family: var(--font-display); font-size: 1.05rem; }
+.nav__links { display: flex; gap: clamp(12px, 1.6vw, 26px); }
+.nav__links a { text-decoration: none; font-size: .86rem; color: var(--muted); position: relative; padding-block: 4px; transition: color .3s; }
+.nav__links a::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--brass); transform: scaleX(0); transform-origin: right; transition: transform .45s var(--ease); }
+.nav__links a:hover, .nav__links a.is-active { color: var(--fg); }
+.nav__links a:hover::after, .nav__links a.is-active::after { transform: scaleX(1); transform-origin: left; }
+.nav__tools { display: flex; gap: 8px; }
+.icon-btn { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line); background: transparent; color: var(--fg); display: grid; place-items: center; transition: border-color .3s, color .3s; }
+.icon-btn:hover { border-color: var(--brass); color: var(--brass); }
+.icon-btn .mono { font-size: .72rem; }
+.theme-ico { width: 14px; height: 14px; border-radius: 50%; border: 1.5px solid currentColor; background: linear-gradient(90deg, currentColor 50%, transparent 50%); }
+.nav__burger { display: none; flex-direction: column; gap: 5px; }
+.nav__burger span { display: block; width: 16px; height: 1.5px; background: currentColor; transition: transform .4s var(--ease); }
+.nav__burger[aria-expanded="true"] span:first-child { transform: translateY(3.25px) rotate(45deg); }
+.nav__burger[aria-expanded="true"] span:last-child { transform: translateY(-3.25px) rotate(-45deg); }
+.menu { position: fixed; inset: 0; z-index: 45; background: var(--bg); display: grid; place-items: center; padding: 80px max(16px, env(safe-area-inset-left, 0px)) 40px max(16px, env(safe-area-inset-right, 0px)); }
+.menu nav { display: grid; gap: 6px; text-align: center; }
+.menu a { font-family: var(--font-display); font-size: clamp(2rem, 9vw, 3rem); text-decoration: none; }
+.menu a:hover { color: var(--brass); font-style: italic; }
+@media (max-width: 1020px) { .nav__links { display: none; } .nav__burger { display: flex; } }
+
+/* ---------- Buttons ---------- */
+.btn {
+  --b: var(--brass);
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  padding: 15px 28px; border-radius: 999px; border: 1px solid var(--b); background: transparent; color: var(--fg);
+  font: 500 .9rem/1 var(--font-body); letter-spacing: .02em; text-decoration: none; position: relative; overflow: hidden; isolation: isolate;
+}
+.btn::before { content: ""; position: absolute; inset: 0; background: var(--brass); transform: translateY(101%); transition: transform .5s var(--ease); z-index: -1; border-radius: inherit; }
+.btn:hover { color: var(--bg); }
+.btn:hover::before { transform: translateY(0); }
+.btn--solid { background: var(--brass); color: var(--bg); }
+.btn--solid::before { background: var(--fg); }
+.btn--sm { padding: 11px 20px; font-size: .84rem; }
+.btn span { pointer-events: none; }
+
+/* ---------- Hero ---------- */
+.hero { position: relative; min-height: 100svh; display: flex; align-items: center; padding-block: 120px 90px; overflow: hidden; }
+.hero__rosette { position: absolute; right: -14vw; top: 50%; width: min(1100px, 95vw); aspect-ratio: 1; height: auto; transform: translateY(-50%); opacity: .85; pointer-events: none; }
+.hero__inner { position: relative; width: 100%; display: grid; gap: clamp(22px, 3vw, 36px); }
+.hero__eyebrow { color: var(--muted); letter-spacing: .14em; }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 0 var(--ok); animation: ping 2.4s infinite; }
+@keyframes ping { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--ok) 70%, transparent); } 70%,100% { box-shadow: 0 0 0 12px transparent; } }
+.hero__name { margin: 0; font-family: var(--font-display); font-weight: 500; font-size: var(--step-4); line-height: .88; letter-spacing: -.035em; }
+.hero__name .line { display: block; overflow: hidden; padding-bottom: .06em; }
+.hero__name .line--indent { padding-left: clamp(0px, 12vw, 220px); }
+.hero__name .italic { color: var(--brass-2); font-weight: 400; }
+.char { display: inline-block; will-change: transform; }
+.hero__row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: clamp(20px, 5vw, 80px); align-items: start; max-width: 1100px; }
+.hero__role { margin: 0; font-family: var(--font-display); font-size: var(--step-2); line-height: 1.1; }
+.hero__role-prefix { display: block; color: var(--muted); font-size: .8rem; margin-bottom: 8px; }
+.role-swap { display: inline-block; font-style: italic; color: var(--fg); }
+.hero__intro { margin: 0; color: var(--muted); max-width: 52ch; font-weight: 300; font-size: var(--step-1); line-height: 1.5; }
+.hero__cta { display: flex; gap: 12px; flex-wrap: wrap; }
+.hero__ledger { margin: 10px 0 0; display: grid; grid-template-columns: repeat(3, minmax(0, 220px)); border-top: 1px solid var(--line); }
+.hero__ledger div { padding: 14px 18px 0 0; }
+.hero__ledger div + div { padding-left: 18px; border-left: 1px solid var(--line); }
+.hero__ledger dt { color: var(--brass); margin-bottom: 4px; text-transform: uppercase; }
+.hero__ledger dd { margin: 0; font-size: .95rem; }
+.hero__scroll { position: absolute; left: 50%; bottom: 26px; transform: translateX(-50%); display: grid; justify-items: center; gap: 8px; color: var(--muted); text-decoration: none; text-transform: uppercase; }
+.hero__scroll i { width: 1px; height: 46px; background: linear-gradient(var(--brass), transparent); animation: drip 2s var(--ease) infinite; transform-origin: top; }
+@media (max-height: 1000px) { .hero__scroll { display: none; } }
+@keyframes drip { 0% { transform: scaleY(0); } 50% { transform: scaleY(1); transform-origin: top; } 51% { transform-origin: bottom; } 100% { transform: scaleY(0); transform-origin: bottom; } }
+@media (max-width: 760px) {
+  .hero__row { grid-template-columns: 1fr; }
+  .hero__ledger { grid-template-columns: 1fr; }
+  .hero__ledger div + div { padding-left: 0; border-left: 0; border-top: 1px solid var(--line); padding-top: 12px; margin-top: 12px; }
+  .hero__rosette { right: -40vw; top: 32%; width: 130vw; opacity: .5; }
+  .hero__scroll { display: none; }
+}
+
+/* ---------- Marquee ---------- */
+.marquee { border-block: 1px solid var(--line); overflow: hidden; padding-block: 18px; background: var(--bg-2); }
+.marquee__track { display: flex; width: max-content; gap: 48px; font-family: var(--font-display); font-size: clamp(1.4rem, 3vw, 2.4rem); font-style: italic; white-space: nowrap; animation: marquee 48s linear infinite; }
+.marquee--alt { margin-top: clamp(60px, 9vw, 120px); }
+.marquee--alt .marquee__track { animation-direction: reverse; font-style: normal; font-family: var(--font-mono); font-size: clamp(.9rem, 1.6vw, 1.1rem); text-transform: uppercase; letter-spacing: .14em; color: var(--muted); }
+.marquee__track span { display: inline-flex; align-items: center; gap: 48px; }
+.marquee__track span::after { content: "✦"; color: var(--brass); font-style: normal; font-size: .6em; }
+@keyframes marquee { to { transform: translateX(-50%); } }
+
+/* ---------- About ---------- */
+.about__grid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.3fr); grid-template-areas: "portrait text" "portrait facts"; gap: clamp(28px, 5vw, 80px); align-items: start; }
+.about__portrait { grid-area: portrait; position: sticky; top: 110px; }
+.portrait { position: relative; aspect-ratio: 1; max-width: 440px; width: 100%; border-radius: 50%; display: grid; place-items: center; overflow: hidden; border: 1px solid var(--line); background: radial-gradient(circle, var(--bg-2), var(--bg) 70%); }
+.portrait canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.portrait__img { position: absolute; top: 12%; left: 12%; width: 76%; height: 76%; object-fit: cover; object-position: 50% 30%; border-radius: 50%; z-index: 1; box-shadow: 0 0 0 1px var(--brass), 0 0 0 7px var(--bg), 0 0 0 8px color-mix(in srgb, var(--brass) 45%, transparent), 0 24px 60px var(--shadow); }
+.portrait__mono { position: relative; font-family: var(--font-display); font-size: clamp(4rem, 10vw, 8rem); font-style: italic; color: var(--brass-2); z-index: 1; }
+.portrait__ring { position: absolute; inset: 0; z-index: 2; }
+.portrait__ring svg { width: 100%; height: 100%; animation: spin 40s linear infinite; }
+.portrait__ring text { font-family: var(--font-mono); font-size: 13px; letter-spacing: 4px; fill: var(--brass); }
+@keyframes spin { to { transform: rotate(360deg); } }
+.about__text { grid-area: text; display: grid; gap: 22px; }
+.about__text p { margin: 0; font-size: var(--step-1); line-height: 1.55; font-weight: 300; max-width: 62ch; }
+.about__text p:first-child::first-letter { font-family: var(--font-display); float: left; font-size: 4.4em; line-height: .8; padding: .06em .1em 0 0; color: var(--brass-2); }
+.about__facts { grid-area: facts; margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid var(--line); }
+.about__facts div { padding: 16px 0; border-bottom: 1px solid var(--line); display: grid; gap: 4px; }
+.about__facts div:nth-child(odd) { padding-right: 16px; }
+.about__facts div:nth-child(even) { padding-left: 16px; border-left: 1px solid var(--line); }
+.about__facts dt { font-family: var(--font-mono); font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--brass); }
+.about__facts dd { margin: 0; }
+@media (max-width: 860px) {
+  .about__grid { grid-template-columns: 1fr; grid-template-areas: "portrait" "text" "facts"; }
+  .about__portrait { position: relative; top: 0; max-width: 300px; }
+}
+@media (max-width: 480px) {
+  .about__facts { grid-template-columns: 1fr; }
+  .about__facts div:nth-child(odd), .about__facts div:nth-child(even) { padding-inline: 0; border-left: 0; }
+}
+
+/* ---------- Stats ---------- */
+.stats { padding-block: 0 clamp(80px, 10vw, 140px); }
+.stats__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+.stat { padding: clamp(22px, 3vw, 40px); border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); display: grid; gap: 10px; position: relative; overflow: hidden; }
+.stat::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--brass) 14%, transparent), transparent 60%); opacity: 0; transition: opacity .4s; }
+.stat:hover::before { opacity: 1; }
+.stat__n { font-family: var(--font-display); font-size: clamp(3rem, 6vw, 5.4rem); line-height: 1; font-variant-numeric: tabular-nums lining-nums; color: var(--brass-2); }
+.stat__l { color: var(--muted); max-width: 26ch; position: relative; }
+@media (max-width: 760px) { .stats__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 440px) { .stats__grid { grid-template-columns: 1fr; } }
+
+/* ---------- Work (horizontal case files) ---------- */
+.work { padding-top: clamp(60px, 8vw, 120px); position: relative; }
+.work__intro { display: grid; gap: 18px; margin-bottom: clamp(30px, 4vw, 50px); }
+.work__viewport { overflow: hidden; }
+.work__track { display: flex; gap: clamp(18px, 2.5vw, 34px); padding-left: max(16px, env(safe-area-inset-left, 0px), calc((100vw - var(--maxw)) / 2 + 4vw)); padding-right: max(16px, env(safe-area-inset-right, 0px), 4vw); padding-block: 10px 60px; width: max-content; }
+.case {
+  width: min(78vw, 820px); min-height: min(72vh, 600px); flex: none; position: relative;
+  background: var(--bg-2); border: 1px solid var(--line); border-radius: 4px; padding: clamp(22px, 3vw, 44px);
+  display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, .85fr); gap: clamp(20px, 3vw, 44px); overflow: hidden;
+}
+.case::after { /* engraved inner border like a certificate */
+  content: ""; position: absolute; inset: 10px; border: 1px solid color-mix(in srgb, var(--brass) 30%, transparent); pointer-events: none; border-radius: 2px;
+}
+.case__no { font-family: var(--font-display); font-size: clamp(5rem, 11vw, 9rem); line-height: .8; color: transparent; -webkit-text-stroke: 1px color-mix(in srgb, var(--brass) 55%, transparent); position: absolute; right: 24px; bottom: 6px; font-style: italic; pointer-events: none; }
+.case__main { display: flex; flex-direction: column; gap: 16px; position: relative; z-index: 1; min-width: 0; }
+.case__kicker { color: var(--brass); text-transform: uppercase; }
+.case__title { margin: 0; font-family: var(--font-display); font-weight: 500; font-size: clamp(2rem, 3.8vw, 3.4rem); line-height: 1; letter-spacing: -.02em; }
+.case__status { display: inline-flex; align-self: flex-start; align-items: center; gap: 8px; padding: 5px 12px; border: 1px solid var(--line); border-radius: 999px; font-family: var(--font-mono); font-size: .72rem; letter-spacing: .06em; color: var(--muted); }
+.case__status::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--ok); }
+.case__status.is-wip::before { background: var(--brass); }
+.case__summary { margin: 0; color: var(--fg); font-weight: 300; font-size: 1.06rem; }
+.case__points { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.case__points li { position: relative; padding-left: 22px; color: var(--muted); font-size: .95rem; line-height: 1.5; }
+.case__points li::before { content: ""; position: absolute; left: 0; top: .7em; width: 12px; height: 1px; background: var(--brass); }
+.case__stack { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; }
+.tag { font-family: var(--font-mono); font-size: .7rem; letter-spacing: .04em; padding: 5px 10px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); }
+.case__links { display: flex; gap: 10px; flex-wrap: wrap; }
+.case__art { position: relative; border-left: 1px solid var(--line); display: grid; place-items: center; min-height: 240px; z-index: 1; }
+.case__art canvas { width: 100%; height: 100%; position: absolute; inset: 0; }
+.work.is-horizontal .work__viewport { height: 100vh; display: flex; align-items: center; }
+@media (max-width: 899px) {
+  .work__track { flex-direction: column; width: auto; padding-inline: max(16px, env(safe-area-inset-left, 0px), 4vw) max(16px, env(safe-area-inset-right, 0px), 4vw); }
+  .case { width: 100%; min-height: 0; grid-template-columns: 1fr; }
+  .case__art { border-left: 0; border-top: 1px solid var(--line); min-height: 200px; order: -1; border-top: 0; border-bottom: 1px solid var(--line); }
+}
+
+/* ---------- Lab ---------- */
+.lab { background: var(--bg-2); border-block: 1px solid var(--line); }
+.lab__panel { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, .9fr); grid-template-areas: "controls controls" "stage readout"; gap: 20px 28px; }
+.lab__controls { grid-area: controls; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.seg { font: 500 .88rem/1 var(--font-body); padding: 12px 18px; border-radius: 999px; border: 1px solid var(--line); background: transparent; color: var(--muted); transition: all .3s; }
+.seg.is-active { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.seg:hover:not(.is-active) { border-color: var(--brass); color: var(--fg); }
+#runAttack { margin-left: auto; }
+.lab__stage { grid-area: stage; border: 1px solid var(--line); border-radius: 4px; background: var(--bg); overflow-x: auto; }
+.lab__stage svg { display: block; width: 100%; min-width: 600px; height: auto; }
+.lab__readout { grid-area: readout; display: grid; gap: 0; align-content: start; border-top: 1px solid var(--line); }
+.lab__readout div { padding: 16px 0; border-bottom: 1px solid var(--line); display: grid; gap: 4px; }
+.lab__readout .mono { color: var(--brass); text-transform: uppercase; }
+.lab__readout strong { font-family: var(--font-display); font-size: 2.4rem; font-weight: 500; line-height: 1; font-variant-numeric: tabular-nums; transition: color .4s; }
+.lab__readout strong.is-bad { color: var(--alert); }
+.lab__readout strong.is-good { color: var(--ok); }
+.lab__note { margin: 16px 0 0; color: var(--muted); font-size: .95rem; }
+.lab svg .edge { stroke: var(--line); stroke-width: 1.5; fill: none; }
+.lab svg .edge.is-hot { stroke: var(--alert); stroke-width: 2.2; }
+.lab svg .edge.is-blocked { stroke: var(--muted); stroke-dasharray: 4 6; opacity: .6; }
+.lab svg .edge.is-allowed { stroke: var(--ok); stroke-width: 2.2; }
+.lab svg .node circle { fill: var(--bg-2); stroke: var(--brass); stroke-width: 1.5; transition: fill .4s, stroke .4s; }
+.lab svg .node text { fill: var(--fg); font-family: var(--font-body); font-size: 13px; text-anchor: middle; }
+.lab svg .node .sub { fill: var(--muted); font-family: var(--font-mono); font-size: 10px; letter-spacing: .06em; }
+.lab svg .node.is-hit circle { fill: color-mix(in srgb, var(--alert) 35%, var(--bg-2)); stroke: var(--alert); }
+.lab svg .node.is-safe circle { stroke: var(--ok); }
+.lab svg .node.is-entry circle { stroke: var(--alert); stroke-width: 2.5; }
+.lab svg .zone { fill: none; stroke: var(--brass); stroke-dasharray: 2 6; opacity: .6; }
+.lab svg .zone-label { fill: var(--brass); font-family: var(--font-mono); font-size: 10px; letter-spacing: .18em; }
+.lab svg .pep circle { fill: var(--bg); stroke: var(--ok); stroke-width: 2; }
+.lab svg .pep text { fill: var(--ok); font-family: var(--font-mono); font-size: 10px; text-anchor: middle; letter-spacing: .1em; }
+.lab svg .packet { fill: var(--alert); }
+.lab svg .blockmark { stroke: var(--alert); stroke-width: 2.5; }
+.hypo { margin-top: clamp(40px, 6vw, 70px); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; border-top: 1px solid var(--line); }
+.hypo__item { padding: 22px 22px 0 0; display: grid; gap: 10px; align-content: start; }
+.hypo__item + .hypo__item { padding-left: 22px; border-left: 1px solid var(--line); }
+.hypo__item p { margin: 0; color: var(--muted); }
+.hypo__tag { color: var(--ok); text-transform: uppercase; }
+@media (max-width: 900px) {
+  .lab__panel { grid-template-columns: 1fr; grid-template-areas: "controls" "stage" "readout"; }
+  .lab__readout { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .lab__readout div { padding-right: 10px; }
+  .lab__readout strong { font-size: 1.6rem; }
+  .lab__note { grid-column: 1 / -1; }
+  .hypo { grid-template-columns: 1fr; }
+  .hypo__item + .hypo__item { padding-left: 0; border-left: 0; border-top: 1px solid var(--line); margin-top: 20px; }
+  #runAttack { margin-left: 0; }
+}
+
+/* ---------- Skills ---------- */
+.skills__layout { display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: clamp(24px, 5vw, 70px); }
+.skills__tabs { display: grid; align-content: start; border-top: 1px solid var(--line); }
+.skills__tab { background: none; border: 0; border-bottom: 1px solid var(--line); color: var(--muted); text-align: left; padding: 16px 0; font: 400 1.35rem/1.2 var(--font-display); display: flex; justify-content: space-between; align-items: center; transition: color .3s, padding .4s var(--ease); }
+.skills__tab .mono { font-size: .7rem; color: var(--brass); }
+.skills__tab:hover { color: var(--fg); }
+.skills__tab[aria-selected="true"] { color: var(--fg); font-style: italic; padding-left: 14px; }
+.skills__panel { display: flex; flex-wrap: wrap; gap: 12px; align-content: start; min-height: 220px; }
+.chip { font-size: clamp(1rem, 1.6vw, 1.25rem); padding: 14px 22px; border: 1px solid var(--line); border-radius: 999px; background: var(--bg-2); transition: border-color .3s, transform .3s var(--ease), background .3s; }
+.chip:hover { border-color: var(--brass); transform: translateY(-3px); }
+.langs { margin-top: clamp(50px, 7vw, 90px); display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--line); }
+.lang { padding: 20px 16px 0 0; display: grid; gap: 10px; }
+.lang + .lang { padding-left: 16px; border-left: 1px solid var(--line); }
+.lang__name { font-family: var(--font-display); font-size: 1.5rem; }
+.lang__lvl { color: var(--brass); }
+.lang__bar { display: flex; gap: 4px; }
+.lang__bar i { flex: 1; height: 3px; background: var(--line); }
+.lang__bar i.on { background: var(--brass); }
+@media (max-width: 760px) {
+  .skills__layout { grid-template-columns: 1fr; }
+  .skills__tabs { grid-auto-flow: column; grid-auto-columns: max-content; overflow-x: auto; border: 0; gap: 8px; padding-bottom: 6px; }
+  .skills__tab { border: 1px solid var(--line); border-radius: 999px; padding: 10px 16px; font-size: 1rem; gap: 10px; }
+  .skills__tab[aria-selected="true"] { padding-left: 16px; background: var(--fg); color: var(--bg); }
+  .langs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .lang:nth-child(3) { padding-left: 0; border-left: 0; }
+}
+
+/* ---------- Timeline ---------- */
+.timeline { position: relative; }
+.timeline__line { position: absolute; left: 50%; top: 0; width: 2px; height: 100%; overflow: visible; transform: translateX(-1px); }
+.timeline__line path { stroke: var(--brass); stroke-width: 2; fill: none; }
+.timeline::before { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: var(--line); }
+.timeline__list { list-style: none; margin: 0; padding: 0; display: grid; gap: clamp(26px, 4vw, 48px); }
+.tl { display: grid; grid-template-columns: minmax(0, 1fr) 60px minmax(0, 1fr); align-items: start; }
+.tl__date { font-family: var(--font-display); font-style: italic; font-size: clamp(1.4rem, 2.6vw, 2.2rem); color: var(--brass-2); text-align: right; line-height: 1.1; padding-top: 4px; }
+.tl__pin { justify-self: center; width: 16px; height: 16px; border-radius: 50%; background: var(--bg); border: 1.5px solid var(--brass); margin-top: 14px; position: relative; z-index: 1; transition: background .4s, transform .4s; }
+.tl.is-on .tl__pin { background: var(--brass); transform: scale(1.2); }
+.tl__card { display: grid; gap: 6px; }
+.tl__type { color: var(--brass); text-transform: uppercase; }
+.tl__title { margin: 0; font-family: var(--font-display); font-weight: 500; font-size: 1.45rem; line-height: 1.15; }
+.tl__place { color: var(--fg); font-size: .95rem; }
+.tl__text { margin: 0; color: var(--muted); font-size: .95rem; max-width: 46ch; }
+.tl:nth-child(even) .tl__date { order: 3; text-align: left; }
+.tl:nth-child(even) .tl__card { order: 1; text-align: right; justify-items: end; }
+.tl:nth-child(even) .tl__pin { order: 2; }
+@media (max-width: 760px) {
+  .timeline__line, .timeline::before { left: 7px; }
+  .tl, .tl:nth-child(even) { grid-template-columns: 16px minmax(0, 1fr); column-gap: 20px; }
+  .tl__pin, .tl:nth-child(even) .tl__pin { order: 0; grid-row: span 2; margin-top: 8px; }
+  .tl__date, .tl:nth-child(even) .tl__date { order: 1; text-align: left; font-size: 1.3rem; }
+  .tl__card, .tl:nth-child(even) .tl__card { order: 2; text-align: left; justify-items: start; grid-column: 2; }
+}
+
+/* ---------- Honours (certificates) ---------- */
+.honours__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 22px; }
+.cert {
+  position: relative; padding: 34px 28px 30px; border: 1px solid var(--line); background: var(--bg-2); border-radius: 3px; overflow: hidden;
+  display: grid; gap: 12px; justify-items: center; text-align: center; transform-style: preserve-3d; transition: border-color .4s;
+}
+.cert::before { content: ""; position: absolute; inset: 8px; border: 1px solid color-mix(in srgb, var(--brass) 40%, transparent); pointer-events: none; }
+.cert::after { content: ""; position: absolute; inset: 12px; border: 1px dashed color-mix(in srgb, var(--brass) 20%, transparent); pointer-events: none; }
+.cert:hover { border-color: var(--brass); }
+.cert__seal { width: 86px; height: 86px; position: relative; display: grid; place-items: center; }
+.cert__seal canvas { position: absolute; inset: 0; width: 100%; height: 100%; animation: spin 30s linear infinite; }
+.cert__seal span { font-family: var(--font-display); font-style: italic; font-size: 1.4rem; color: var(--brass-2); position: relative; }
+.cert__date { color: var(--brass); text-transform: uppercase; }
+.cert__title { margin: 0; font-family: var(--font-display); font-weight: 500; font-size: 1.55rem; line-height: 1.1; text-wrap: balance; }
+.cert__org { font-size: .9rem; color: var(--fg); }
+.cert__text { margin: 0; color: var(--muted); font-size: .92rem; max-width: 32ch; }
+.cert__shine { position: absolute; inset: 0; background: linear-gradient(115deg, transparent 30%, color-mix(in srgb, var(--brass-2) 18%, transparent) 50%, transparent 70%); transform: translateX(-100%); pointer-events: none; }
+.cert:hover .cert__shine { transform: translateX(100%); transition: transform 1.1s var(--ease); }
+
+/* ---------- GitHub ---------- */
+.gh__status { color: var(--muted); margin: 0 0 22px; }
+.gh__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 16px; }
+.repo { display: grid; gap: 12px; align-content: start; padding: 24px; border: 1px solid var(--line); border-radius: 4px; text-decoration: none; background: var(--bg); position: relative; transition: border-color .3s, transform .4s var(--ease); min-width: 0; }
+.repo:hover { border-color: var(--brass); transform: translateY(-4px); }
+.repo__top { display: flex; justify-content: space-between; gap: 10px; color: var(--muted); }
+.repo__name { font-family: var(--font-display); font-size: 1.3rem; line-height: 1.15; overflow-wrap: anywhere; }
+.repo__desc { margin: 0; color: var(--muted); font-size: .92rem; }
+.repo__meta { display: flex; gap: 14px; color: var(--muted); flex-wrap: wrap; }
+.repo__lang::before { content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--brass); margin-right: 6px; }
+.repo__arrow { transition: transform .4s var(--ease); }
+.repo:hover .repo__arrow { transform: translate(3px, -3px); color: var(--brass); }
+
+/* ---------- Contact ---------- */
+.contact { overflow: hidden; text-align: left; }
+.contact__rosette { position: absolute; left: 50%; top: 50%; width: min(1200px, 140vw); aspect-ratio: 1; height: auto; transform: translate(-50%, -50%); opacity: .35; pointer-events: none; }
+.contact__inner { position: relative; display: grid; gap: 26px; }
+.contact__title { margin: 0; font-family: var(--font-display); font-weight: 500; font-size: clamp(4rem, 15vw, 13rem); line-height: .85; letter-spacing: -.04em; }
+.contact__title em { color: var(--brass-2); font-weight: 400; }
+.contact__cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--line); margin-top: 20px; }
+.ccard { padding: 20px 18px 20px 0; display: grid; gap: 6px; border-bottom: 1px solid var(--line); min-width: 0; }
+.ccard + .ccard { padding-left: 18px; border-left: 1px solid var(--line); }
+.ccard .mono { color: var(--brass); text-transform: uppercase; }
+.ccard__val { font-family: var(--font-display); font-size: clamp(1.1rem, 2vw, 1.6rem); text-decoration: none; overflow-wrap: anywhere; user-select: all; }
+a.ccard__val:hover { color: var(--brass-2); }
+.copy { justify-self: start; background: none; border: 1px solid var(--line); color: var(--muted); border-radius: 999px; padding: 4px 12px; font-size: .68rem; }
+.copy:hover { border-color: var(--brass); color: var(--fg); }
+.contact__links { display: flex; gap: 10px; flex-wrap: wrap; }
+@media (max-width: 760px) { .contact__cards { grid-template-columns: 1fr; } .ccard + .ccard { padding-left: 0; border-left: 0; } }
+
+.footer { border-top: 1px solid var(--line); padding-block: 26px calc(26px + env(safe-area-inset-bottom, 0px)); color: var(--muted); }
+.footer__inner { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+
+/* ---------- Terminal ---------- */
+.term { position: fixed; inset: 0; z-index: 120; background: color-mix(in srgb, var(--bg) 70%, transparent); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); display: grid; place-items: center; padding: max(16px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) max(16px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); }
+.term__win { width: min(760px, 100%); height: min(520px, 80vh); background: #07100d; color: #cfe3d4; border: 1px solid var(--brass); border-radius: 8px; display: grid; grid-template-rows: auto 1fr auto; overflow: hidden; box-shadow: 0 30px 80px var(--shadow); }
+.term__bar { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; border-bottom: 1px solid #1c2c25; color: #8fa498; }
+.term__close { background: none; border: 1px solid #2b4036; color: #8fa498; border-radius: 4px; padding: 2px 8px; }
+.term__out { padding: 14px; overflow-y: auto; white-space: pre-wrap; font-size: .82rem; line-height: 1.6; }
+.term__out .t-brass { color: #e3c88d; }
+.term__out .t-ok { color: #8fd0a2; }
+.term__out .t-dim { color: #6f8579; }
+.term__form { display: flex; gap: 10px; align-items: center; padding: 10px 14px; border-top: 1px solid #1c2c25; }
+.term__form label { color: #e3c88d; font-size: .9rem; }
+.term__form input { flex: 1; min-width: 0; background: transparent; border: 0; color: #cfe3d4; font-size: .9rem; outline: none; caret-color: #e3c88d; }
+
+.toast { position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 140%); background: var(--fg); color: var(--bg); padding: 10px 18px; border-radius: 999px; z-index: 130; transition: transform .5s var(--ease), opacity .3s; font-size: .8rem; opacity: 0; pointer-events: none; }
+.toast.is-on { transform: translate(-50%, 0); opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+  .marquee__track { animation: none; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- Preloader -->
+<div class="loader" id="loader" aria-hidden="true">
+  <canvas class="loader__rosette" id="loaderRosette" width="320" height="320"></canvas>
+  <div class="loader__meta">
+    <span class="mono">Riga · 56.95° N</span>
+    <span class="loader__count mono" id="loaderCount">000</span>
+  </div>
+</div>
+
+<div class="cursor" id="cursor" aria-hidden="true"><span class="cursor__dot"></span><span class="cursor__ring"></span></div>
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<header class="nav" id="nav">
+  <div class="nav__inner">
+    <a href="#top" class="nav__mark" aria-label="Back to top"><span class="seal-sm"><img src="aaron.jpg" alt="" width="96" height="96" onerror="this.remove()">AS</span><span class="nav__name">Aaron Sebastian</span></a>
+    <nav class="nav__links" aria-label="Sections">
+      <a href="#about">About</a>
+      <a href="#work">Work</a>
+      <a href="#lab">Zero-Trust Lab</a>
+      <a href="#skills">Skills</a>
+      <a href="#journey">Journey</a>
+      <a href="#honours">Honours</a>
+      <a href="#github">GitHub</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav__tools">
+      <button class="icon-btn" id="termBtn" type="button" aria-label="Open terminal" title="Open terminal (press ~)"><span class="mono">&gt;_</span></button>
+      <button class="icon-btn" id="themeBtn" type="button" aria-label="Switch light or dark theme" title="Switch theme"><span class="theme-ico"></span></button>
+      <button class="icon-btn nav__burger" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="menu" id="menu" hidden>
+  <nav aria-label="Mobile sections">
+    <a href="#about">About</a><a href="#work">Work</a><a href="#lab">Zero-Trust Lab</a><a href="#skills">Skills</a>
+    <a href="#journey">Journey</a><a href="#honours">Honours</a><a href="#github">GitHub</a><a href="#contact">Contact</a>
+  </nav>
+</div>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <canvas class="hero__rosette" id="heroRosette" aria-hidden="true"></canvas>
+    <div class="wrap hero__inner">
+      <p class="eyebrow hero__eyebrow"><span class="dot"></span><span id="heroEyebrow">Riga, Latvia · open to junior security roles</span></p>
+      <h1 class="hero__name" aria-label="Aaron Sebastian">
+        <span class="line"><span class="word" data-split>Aaron</span></span>
+        <span class="line line--indent"><span class="word italic" data-split>Sebastian</span></span>
+      </h1>
+      <div class="hero__row">
+        <p class="hero__role"><span class="mono hero__role-prefix">currently</span> <span class="role-swap" id="roleSwap">Cybersecurity graduate</span></p>
+        <p class="hero__intro" id="heroIntro"></p>
+      </div>
+      <div class="hero__cta">
+        <a class="btn btn--solid magnetic" href="#work"><span>See my work</span></a>
+        <a class="btn magnetic" href="#contact"><span>Get in touch</span></a>
+      </div>
+      <dl class="hero__ledger">
+        <div><dt class="mono">Degree</dt><dd>BSc, defended Jun 2026</dd></div>
+        <div><dt class="mono">Now</dt><dd>MSc Computer Systems</dd></div>
+        <div><dt class="mono">Building</dt><dd>AI agents &amp; bots</dd></div>
+      </dl>
+    </div>
+    <a class="hero__scroll mono" href="#about" aria-label="Scroll to About"><span>Scroll</span><i></i></a>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee__track" id="marqueeA"></div>
+  </div>
+
+  <!-- ABOUT -->
+  <section class="section about" id="about">
+    <div class="wrap">
+      <div class="section__head">
+        <p class="eyebrow">About</p>
+        <h2 class="h2 reveal-lines">A security mind with a <em>builder's</em> habit.</h2>
+      </div>
+      <div class="about__grid">
+        <div class="about__portrait">
+          <div class="portrait" id="portrait">
+            <canvas id="portraitRosette" aria-hidden="true"></canvas>
+            <span class="portrait__mono">AS</span>
+            <img class="portrait__img" src="aaron.jpg" alt="Aaron Sebastian" width="800" height="800" onerror="this.remove()">
+            <span class="portrait__ring mono" aria-hidden="true">AARON SEBASTIAN · RIGA · ZERO TRUST · AI AGENTS · </span>
+          </div>
+        </div>
+        <div class="about__text" id="aboutText"></div>
+        <dl class="about__facts" id="aboutFacts"></dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="section stats" aria-label="In numbers">
+    <div class="wrap">
+      <div class="stats__grid" id="statsGrid"></div>
+    </div>
+  </section>
+
+  <!-- WORK (horizontal) -->
+  <section class="work" id="work">
+    <div class="wrap work__intro">
+      <p class="eyebrow">Selected work</p>
+      <h2 class="h2">Five case files.</h2>
+      <p class="lede">Research, bots, agents and a lab. Each one taught me something different about how systems break and how to make them useful.</p>
+    </div>
+    <div class="work__viewport" id="workViewport">
+      <div class="work__track" id="workTrack"></div>
+    </div>
+  </section>
+
+  <!-- ZERO TRUST LAB -->
+  <section class="section lab" id="lab">
+    <div class="wrap">
+      <div class="section__head">
+        <p class="eyebrow">Interactive · from my thesis</p>
+        <h2 class="h2 reveal-lines">One stolen password. <em>Two networks.</em></h2>
+        <p class="lede">An attacker logs in with a stolen employee password. Pick an architecture and watch how far they get. This is a simplified version of the scenario I analysed in my thesis.</p>
+      </div>
+      <div class="lab__panel">
+        <div class="lab__controls" role="group" aria-label="Choose architecture">
+          <button type="button" class="seg is-active" id="modePerimeter" aria-pressed="true">Perimeter</button>
+          <button type="button" class="seg" id="modeZT" aria-pressed="false">Zero-Trust</button>
+          <button type="button" class="btn btn--solid btn--sm magnetic" id="runAttack"><span>Run the attack</span></button>
+        </div>
+        <div class="lab__stage">
+          <svg id="labSvg" viewBox="0 0 800 474" role="img" aria-label="Network diagram showing how far an attacker reaches"></svg>
+        </div>
+        <div class="lab__readout">
+          <div><span class="mono">Assets reached</span><strong id="labReached">0 / 6</strong></div>
+          <div><span class="mono">Implicit trust paths</span><strong id="labTrust">6</strong></div>
+          <div><span class="mono">Residual risk</span><strong id="labRisk">High</strong></div>
+          <p class="lab__note" id="labNote">Inside the perimeter, the network trusts anyone who got past the firewall.</p>
+        </div>
+      </div>
+      <div class="hypo" id="hypo">
+        <article class="hypo__item"><span class="hypo__tag mono">H1 · supported</span><p>A perimeter design lets an attacker reach more critical assets than Zero-Trust under the same credential compromise.</p></article>
+        <article class="hypo__item"><span class="hypo__tag mono">H2 · supported</span><p>Zero-Trust removes implicit trust relationships and cuts the chances to escalate privileges.</p></article>
+        <article class="hypo__item"><span class="hypo__tag mono">H3 · supported</span><p>Critical assets carry lower residual risk under Zero-Trust when scored as Likelihood × Impact.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="section skills" id="skills">
+    <div class="wrap">
+      <div class="section__head">
+        <p class="eyebrow">Toolkit</p>
+        <h2 class="h2 reveal-lines">What I work <em>with</em>.</h2>
+      </div>
+      <div class="skills__layout">
+        <div class="skills__tabs" role="tablist" aria-label="Skill groups" id="skillTabs"></div>
+        <div class="skills__panel" id="skillPanel" role="tabpanel"></div>
+      </div>
+      <div class="langs" id="langs"></div>
+    </div>
+    <div class="marquee marquee--alt" aria-hidden="true"><div class="marquee__track" id="marqueeB"></div></div>
+  </section>
+
+  <!-- JOURNEY -->
+  <section class="section journey" id="journey">
+    <div class="wrap">
+      <div class="section__head">
+        <p class="eyebrow">Journey</p>
+        <h2 class="h2 reveal-lines">The road so <em>far</em>.</h2>
+      </div>
+      <div class="timeline" id="timeline">
+        <svg class="timeline__line" aria-hidden="true" preserveAspectRatio="none"><path id="timelinePath"/></svg>
+        <ol class="timeline__list" id="timelineList"></ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- HONOURS -->
+  <section class="section honours" id="honours">
+    <div class="wrap">
+      <div class="section__head">
+        <p class="eyebrow">Honours &amp; milestones</p>
+        <h2 class="h2 reveal-lines">Earned, <em>on paper</em>.</h2>
+      </div>
+      <div class="honours__grid" id="honoursGrid"></div>
+    </div>
+  </section>
+
+  <!-- GITHUB -->
+  <section class="section github" id="github">
+    <div class="wrap">
+      <div class="section__head section__head--split">
+        <div>
+          <p class="eyebrow">Open source</p>
+          <h2 class="h2 reveal-lines">Straight from <em>GitHub</em>.</h2>
+        </div>
+        <a class="btn magnetic" id="ghProfile" href="https://github.com/aaronsebast" target="_blank" rel="noopener"><span>@aaronsebast</span></a>
+      </div>
+      <p class="gh__status mono" id="ghStatus">Loading repositories…</p>
+      <div class="gh__grid" id="ghGrid"></div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section contact" id="contact">
+    <canvas class="contact__rosette" id="contactRosette" aria-hidden="true"></canvas>
+    <div class="wrap contact__inner">
+      <p class="eyebrow">Contact</p>
+      <h2 class="contact__title">Let's <em>talk.</em></h2>
+      <p class="lede">Open to junior roles in security, networking and automation in Riga or remote. The fastest way to reach me is email.</p>
+      <div class="contact__cards">
+        <div class="ccard"><span class="mono">Email</span><a id="cEmail" class="ccard__val"></a><button type="button" class="copy mono" data-copy="email">Copy</button></div>
+        <div class="ccard"><span class="mono">Phone</span><a id="cPhone" class="ccard__val"></a><button type="button" class="copy mono" data-copy="phone">Copy</button></div>
+        <div class="ccard"><span class="mono">Based in</span><span class="ccard__val" id="cLoc"></span></div>
+      </div>
+      <div class="contact__links" id="cLinks"></div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap footer__inner">
+    <span class="mono">© <span id="year"></span> Aaron Sebastian</span>
+    <span class="mono">Designed and built in Riga · press <kbd>~</kbd> for the terminal</span>
+  </div>
+</footer>
+
+<!-- Terminal easter egg -->
+<div class="term" id="term" hidden role="dialog" aria-label="Terminal" aria-modal="true">
+  <div class="term__win">
+    <div class="term__bar"><span class="mono">aaron@riga: ~</span><button type="button" class="term__close mono" id="termClose" aria-label="Close terminal">esc</button></div>
+    <div class="term__out mono" id="termOut"></div>
+    <form class="term__form" id="termForm" autocomplete="off">
+      <label class="mono" for="termIn">$</label>
+      <input class="mono" id="termIn" type="text" spellcheck="false" aria-label="Terminal command">
+    </form>
+  </div>
+</div>
+
+<div class="toast mono" id="toast" role="status" aria-live="polite"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+/* =========================================================
+   Everything on the site comes from this file.
+   Edit text here; you never need to touch the HTML.
+   ========================================================= */
+window.PROFILE = {
+  name: "Aaron Sebastian",
+  shortName: "Aaron",
+  initials: "AS",
+  roles: [
+    "Cybersecurity graduate",
+    "Zero-Trust researcher",
+    "Builder of AI agents",
+    "Founder of AARON AI AGENCY",
+    "Telegram bot maker",
+    "MSc Computer Systems student"
+  ],
+  intro:
+    "I study how attackers move through networks and how to stop them. In between, I build small AI tools that people actually use, from SplitSmart, a Telegram bot that splits trip costs, to AARON AI AGENCY, a team of eight AI employees.",
+  location: "Riga, Latvia",
+  coords: "56.95° N · 24.11° E",
+  email: "aaronsebastian1010@gmail.com",
+  phone: "+371 25449941",
+  github: "aaronsebast",
+  links: [
+    { label: "GitHub", url: "https://github.com/aaronsebast" },
+    { label: "TryHackMe", url: "https://tryhackme.com" },
+    { label: "HackTheBox", url: "https://www.hackthebox.com" }
+  ],
+
+  about: [
+    "I live and study in Riga. I finished my Bachelor's in Information Systems and Software Engineering at Riga Nordic University in June 2026 and went straight into the Master's programme in Computer Systems.",
+    "My thesis compared two ways of protecting a small company: the classic perimeter, where everything inside the firewall is trusted, and Zero-Trust, where nothing is. I modelled a 30-person consultancy, walked attackers through both designs and scored the risk with NIST SP 800-30.",
+    "Lately I build AI agents. SplitSmart lives in Telegram group chats and settles shared bills, and AARON AI AGENCY is an open-source team of eight AI employees run by a Project Manager agent that logs every task and writes a daily report.",
+    "Outside the lab I have spent more than four years teaching people on the job, first as an instructor at Apollo Fresh Food and now presenting live games at Lucky Streak. Explaining things clearly under pressure is a skill I use every day."
+  ],
+
+  facts: [
+    { k: "Based in", v: "Riga, Latvia" },
+    { k: "Builds", v: "Telegram bots, AI agencies" },
+    { k: "Studying", v: "MSc Computer Systems, RNU" },
+    { k: "Focus", v: "Network security, AI agents" },
+    { k: "Languages", v: "Malayalam, English, Hindi, Italian" },
+    { k: "Off-screen", v: "Cycling, films, Rubik's Cube, travel" }
+  ],
+
+  stats: [
+    { n: 103, suffix: "", label: "pages in my defended Bachelor's thesis" },
+    { n: 15, suffix: "", label: "IT security professionals validated my findings" },
+    { n: 20, suffix: "", label: "CEH v13 modules completed" },
+    { n: 8, suffix: "", label: "AI employees in AARON AI AGENCY" },
+    { n: 27, suffix: "", label: "automated tests behind SplitSmart" },
+    { n: 4.5, suffix: " yrs", label: "training and teaching people at work", decimals: 1 }
+  ],
+
+  /* Projects. repoHints: words used to find the matching GitHub repo automatically. */
+  projects: [
+    {
+      id: "thesis",
+      title: "Perimeter vs Zero-Trust",
+      kicker: "Bachelor's thesis · 2026",
+      status: "Defended 4 June 2026",
+      summary:
+        "A comparative attack-path and risk analysis of perimeter-based and Zero-Trust architectures in a modelled SME. Same attacker, same stolen password, two very different outcomes.",
+      points: [
+        "Modelled NordVia Consulting, a fictional 30-person financial consultancy in Riga, with 7 key assets and 5 user roles",
+        "Traced lateral movement step by step using MITRE ATT&CK techniques",
+        "Scored residual risk with the NIST SP 800-30 Likelihood × Impact method",
+        "103 pages, 30 tables, 11 figures, all diagrams drawn in TikZ and versioned in Git"
+      ],
+      stack: ["NIST SP 800-30", "NIST SP 800-207", "MITRE ATT&CK", "LaTeX", "TikZ", "Git"],
+      repo: "https://github.com/aaronsebast/bsc-thesis-2026-Aaronsebastian",
+      repoHints: ["thesis"],
+      motif: "network"
+    },
+    {
+      id: "splitsmart",
+      title: "SplitSmart AI Bot",
+      kicker: "AI agent · Telegram bot · Oct 2026",
+      status: "Live on Telegram",
+      summary:
+        "Add it to a group chat and type \"I paid 90 for the hotel\". SplitSmart reads plain messages, keeps one ledger per chat and settles everyone up in the fewest payments.",
+      points: [
+        "Understands natural messages with built-in rules, with optional Google Gemini for harder ones",
+        "All money maths runs in whole cents in Python, so totals always add up",
+        "Draws a receipt image for every settle-up and offers Undo, Balances and Settle buttons",
+        "Built three times: a Streamlit web app, a browser version with a live paper receipt, and finally the Telegram bot",
+        "Works in group chats: knows who \"I\" is from the sender and stays quiet during normal chat",
+        "Backed by 27 automated tests, including real messages that once confused it"
+      ],
+      stack: ["Python", "python-telegram-bot", "Gemini API", "Pillow", "Streamlit", "pytest"],
+      live: "https://t.me/Aaronsplitbot",
+      liveLabel: "Open @Aaronsplitbot",
+      repoHints: ["split"],
+      motif: "receipt"
+    },
+    {
+      id: "agency",
+      title: "AARON AI AGENCY",
+      kicker: "Autonomous AI agency · Nov 2026",
+      status: "Built November 2026",
+      summary:
+        "A free, open-source AI marketing agency staffed by eight AI employees. A Project Manager agent checks the other seven every day, logs each task to a live Google Sheet and emails a daily brief.",
+      points: [
+        "Eight employees hired with the open-source ai-employees installer, each with its own .installed.json receipt",
+        "Team: Project Manager, Lead Researcher, Content Writer, Campaign Builder, Performance Analyst, Technical Auditor, Support Triage and Outbound Strategist",
+        "The Project Manager logs Timestamp, Agent Name, Task Performed and Output Status to Google Sheets and sends a daily email",
+        "Numbers are computed by code, so the AI never invents figures, and agents only draft: nothing is posted or paid for",
+        "Runs on its own every morning through GitHub Actions, with a browser demo where you can watch all eight agents work"
+      ],
+      stack: ["Python", "Gemini API", "ai-employees", "Google Apps Script", "Google Sheets", "GitHub Actions"],
+      repoHints: ["aaron-ai-agency", "agency"],
+      motif: "orbit"
+    },
+    {
+      id: "fpd",
+      title: "Fake Payment Detector",
+      kicker: "Master's course project · 2026",
+      status: "In development",
+      summary:
+        "Scammers send edited payment screenshots. This tool reads a screenshot or PDF, checks it against a payment ledger and its own metadata, and returns Verified, Unverified or Suspicious.",
+      points: [
+        "OCR pulls the amount, transaction ID, date and payee from images and PDFs",
+        "Flags reused transaction IDs and duplicate images",
+        "Looks for editing traces in image EXIF data and PDF metadata",
+        "Free stack, planned for a public demo on Streamlit Community Cloud"
+      ],
+      stack: ["Python", "Tesseract OCR", "OpenCV", "pikepdf", "SQLite", "Streamlit"],
+      repoHints: ["fake", "payment"],
+      motif: "scan"
+    },
+    {
+      id: "lab",
+      title: "Offensive Security Lab",
+      kicker: "Hands-on training · 2026",
+      status: "Ongoing",
+      summary:
+        "A private hacking lab where I practise the CEH v13 syllabus on purpose-built vulnerable machines, from first scan to full exploitation and report.",
+      points: [
+        "Kali Linux 2026.1 attacking Metasploitable2 over an isolated host-only network",
+        "Recon with Nmap, theHarvester, Sherlock and DNS brute-forcing",
+        "Exploited the vsftpd 2.3.4 backdoor with Metasploit",
+        "Practice paths on TryHackMe and HackTheBox"
+      ],
+      stack: ["Kali Linux", "Nmap", "Metasploit", "Wireshark", "Hydra", "Hashcat", "SQLmap"],
+      repoHints: [],
+      motif: "terminal"
+    }
+  ],
+
+  skills: [
+    { group: "Programming", items: ["Python", "JavaScript", "C++", "Bash", "PowerShell", "SQL", "Git", "GitHub"] },
+    { group: "Security", items: ["Nmap", "Wireshark", "Metasploit", "Burp Suite", "Hydra", "Hashcat", "John the Ripper", "SQLmap", "OpenVAS", "Nikto", "Maltego", "Shodan"] },
+    { group: "Frameworks", items: ["NIST SP 800-207", "NIST SP 800-30", "MITRE ATT&CK", "OWASP Top 10", "ISO/IEC 27001", "GDPR", "PCI DSS", "CVSS"] },
+    { group: "Systems & Cloud", items: ["Linux", "Windows Server", "VirtualBox", "Docker", "Kubernetes", "Microsoft Azure", "AWS"] },
+    { group: "Networking", items: ["TCP/IP", "DNS", "DHCP", "VLANs", "VPN", "IPSec", "TLS/SSL", "Firewalls", "IDS/IPS"] },
+    { group: "AI & Automation", items: ["Gemini API", "Telegram bots", "Streamlit", "Google Apps Script", "GitHub Actions", "pytest", "LaTeX", "TikZ"] }
+  ],
+
+  languages: [
+    { name: "Malayalam", level: "Native", score: 5 },
+    { name: "English", level: "B2", score: 4 },
+    { name: "Hindi", level: "B1", score: 3 },
+    { name: "Italian", level: "A2", score: 2 }
+  ],
+
+  /* Timeline: oldest first */
+  timeline: [
+    { date: "2019 – 2021", title: "Higher Secondary Education", place: "Santa Cruz Higher Secondary School", text: "Finished higher secondary school, then moved to Europe to study.", type: "edu" },
+    { date: "Apr 2022", title: "Instructor", place: "Apollo Fresh Food SIA, Riga", text: "Trained and onboarded new team members for four and a half years while studying.", type: "work" },
+    { date: "Sep 2023", title: "BSc Information Systems & Software Engineering", place: "Riga Nordic University", text: "Started the Bachelor's programme (4220) and found my way into security.", type: "edu" },
+    { date: "15 May 2026", title: "State examination passed", place: "Riga Nordic University", text: "Cleared the final state exam of the Bachelor's degree.", type: "award" },
+    { date: "4 Jun 2026", title: "Thesis defended", place: "Riga Nordic University", text: "Defended Perimeter vs Zero-Trust before the commission after it was reviewed and recommended for defence.", type: "award" },
+    { date: "2026", title: "CEH v13 training", place: "Self-directed, 55-day plan", text: "Worked through all 20 CEH v13 modules with practice in my own lab.", type: "edu" },
+    { date: "Sep 2026", title: "MSc Computer Systems", place: "Riga Nordic University", text: "Began the professional Master's programme.", type: "edu" },
+    { date: "Sep 2026", title: "Game Presenter", place: "Lucky Streak SIA, Riga", text: "Presenting live games to an international audience, following strict procedures every shift.", type: "work" },
+    { date: "Oct 2026", title: "Shipped SplitSmart AI Bot", place: "Telegram · @Aaronsplitbot", text: "Built and launched my first public AI agent, an expense splitter that lives in group chats.", type: "build" },
+    { date: "Nov 2026", title: "Launched AARON AI AGENCY", place: "Open source", text: "Eight AI employees, a live Google Sheet ledger and a daily email, running every morning on their own.", type: "build" }
+  ],
+
+  /* Honours. Add new awards or certificates at the top of this list. */
+  honours: [
+    { title: "Bachelor's Thesis Defended", org: "Riga Nordic University", date: "June 2026", text: "Reviewed by an independent reviewer and recommended for defence." },
+    { title: "State Examination", org: "Riga Nordic University", date: "May 2026", text: "Passed the final state examination of the BSc programme." },
+    { title: "Expert-Validated Research", org: "15 IT security professionals", date: "2026", text: "Thesis findings checked against real industry experience." },
+    { title: "CEH v13 Training", org: "All 20 modules", date: "2026", text: "Full Certified Ethical Hacker syllabus with hands-on lab work." },
+    { title: "Four Years as Instructor", org: "Apollo Fresh Food SIA", date: "2022 – 2026", text: "Trusted to train and onboard new team members while studying full time." },
+    { title: "TryHackMe & HackTheBox", org: "Practice platforms", date: "Ongoing", text: "Penetration testing, network analysis and privilege escalation paths." }
+  ],
+
+  /* Shown if the GitHub API can't be reached */
+  fallbackRepos: [
+    { name: "bsc-thesis-2026-Aaronsebastian", description: "Bachelor's thesis: Perimeter vs Zero-Trust attack-path and risk analysis (LaTeX)", language: "TeX", html_url: "https://github.com/aaronsebast/bsc-thesis-2026-Aaronsebastian", stargazers_count: 0, pushed_at: "2026-06-04T00:00:00Z" }
+  ]
+};
+
+</script>
+<script>
+/* Aaron Sebastian portfolio. Content lives in data.js. */
+(function () {
+  "use strict";
+  const P = window.PROFILE;
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const hasGsap = !!window.gsap;
+  const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+  /* ---------------- Theme ---------------- */
+  const root = document.documentElement;
+  try { const saved = localStorage.getItem("as-theme"); if (saved) root.dataset.theme = saved; } catch (e) {}
+  const css = (name) => getComputedStyle(root).getPropertyValue(name).trim();
+  let palette = {};
+  const readPalette = () => { palette = { brass: css("--brass"), brass2: css("--brass-2"), line: css("--line"), fg: css("--fg"), muted: css("--muted"), bg: css("--bg"), bg2: css("--bg-2"), alert: css("--alert"), ok: css("--ok") }; };
+  readPalette();
+  $("#themeBtn").addEventListener("click", () => {
+    const dark = palette.bg && isDark(palette.bg);
+    root.dataset.theme = dark ? "light" : "dark";
+    try { localStorage.setItem("as-theme", root.dataset.theme); } catch (e) {}
+    readPalette();
+    rosettes.forEach((r) => r.draw(r.t));
+  });
+  function isDark(hex) {
+    const h = hex.replace("#", "");
+    if (h.length < 6) return true;
+    const n = parseInt(h.slice(0, 6), 16);
+    return ((n >> 16) * 0.299 + ((n >> 8) & 255) * 0.587 + (n & 255) * 0.114) < 128;
+  }
+  function rgba(hex, a) {
+    const h = (hex || "#c6a463").replace("#", "");
+    const n = parseInt(h.slice(0, 6), 16);
+    return `rgba(${n >> 16},${(n >> 8) & 255},${n & 255},${a})`;
+  }
+
+  /* ---------------- Guilloché rosettes ---------------- */
+  // Banknote-style engraving: interlaced sine rings, each drawn as many phase-shifted lines.
+  const rosettes = [];
+  class Rosette {
+    constructor(canvas, opts) {
+      this.c = canvas; this.ctx = canvas.getContext("2d");
+      this.o = Object.assign({ rings: [[.92, .06, 18, 14], [.72, .09, 12, 16], [.5, .1, 9, 14], [.3, .08, 7, 10]], speed: .00012, alpha: .55, progress: 1 }, opts || {});
+      this.t = 0; this.visible = true; this.running = false;
+      this.resize();
+      rosettes.push(this);
+      if ("IntersectionObserver" in window) {
+        new IntersectionObserver((e) => { this.visible = e[0].isIntersecting; if (this.visible) this.loop(); }, { rootMargin: "100px" }).observe(canvas);
+      }
+    }
+    resize() {
+      const r = this.c.getBoundingClientRect();
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const w = Math.max(50, r.width || this.c.width), h = Math.max(50, r.height || this.c.height);
+      this.c.width = w * dpr; this.c.height = h * dpr; this.w = w; this.h = h;
+      this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      this.draw(this.t);
+    }
+    draw(t) {
+      const { ctx, w, h, o } = this;
+      ctx.clearRect(0, 0, w, h);
+      const cx = w / 2, cy = h / 2, R = Math.min(w, h) / 2;
+      const steps = 360;
+      o.rings.forEach(([base, amp, k, lines], ri) => {
+        for (let j = 0; j < lines; j++) {
+          const ph = (j / lines) * (Math.PI * 2 / k) + t * (ri % 2 ? -1 : 1);
+          ctx.beginPath();
+          const end = Math.floor(steps * o.progress);
+          for (let s = 0; s <= end; s++) {
+            const th = (s / steps) * Math.PI * 2;
+            const rr = R * (base + amp * Math.sin(k * th + ph) * Math.cos((k / 2) * th - ph * .5));
+            const x = cx + rr * Math.cos(th), y = cy + rr * Math.sin(th);
+            s ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+          }
+          ctx.strokeStyle = rgba(ri % 2 ? palette.brass : palette.brass2, o.alpha * (0.35 + 0.65 * (j % 3 === 0 ? 1 : .55)));
+          ctx.lineWidth = .6;
+          ctx.stroke();
+        }
+      });
+    }
+    loop() {
+      if (this.running || reduce) return;
+      this.running = true;
+      let last = performance.now();
+      const tick = (now) => {
+        if (!this.visible || document.hidden) { this.running = false; return; }
+        this.t += (now - last) * this.o.speed; last = now;
+        this.draw(this.t);
+        requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    }
+  }
+  let resizeT;
+  window.addEventListener("resize", () => { clearTimeout(resizeT); resizeT = setTimeout(() => rosettes.forEach((r) => r.resize()), 150); });
+
+  /* ---------------- Render content ---------------- */
+  $("#heroIntro").textContent = P.intro;
+  $("#heroEyebrow").textContent = `${P.location} · open to junior security roles`;
+  $("#year").textContent = new Date().getFullYear();
+
+  const marqueeWords = ["Zero-Trust", "Attack-path analysis", "NIST SP 800-30", "Telegram bots", "AI agents", "MITRE ATT&CK", "AARON AI AGENCY", "SplitSmart", "Python", "Riga"];
+  const fill = (el, words) => { const half = words.map((w) => `<span>${esc(w)}</span>`).join(""); el.innerHTML = half + half; };
+  fill($("#marqueeA"), marqueeWords);
+  fill($("#marqueeB"), P.skills.flatMap((g) => g.items).slice(0, 26));
+
+  $("#aboutText").innerHTML = P.about.map((p) => `<p>${esc(p)}</p>`).join("");
+  $("#aboutFacts").innerHTML = P.facts.map((f) => `<div><dt>${esc(f.k)}</dt><dd>${esc(f.v)}</dd></div>`).join("");
+
+  // Portrait ring text + optional photo (aaron.jpg)
+  (function portrait() {
+    const ring = $(".portrait__ring");
+    const txt = ring.textContent.trim();
+    ring.innerHTML = `<svg viewBox="0 0 300 300"><defs><path id="ringPath" d="M150,150 m-132,0 a132,132 0 1,1 264,0 a132,132 0 1,1 -264,0"/></defs><text><textPath href="#ringPath" textLength="826" lengthAdjust="spacing">${esc(txt)}</textPath></text></svg>`;
+  })();
+
+  $("#statsGrid").innerHTML = P.stats.map((s) => `<div class="stat"><span class="stat__n" data-count="${s.n}" data-dec="${s.decimals || 0}" data-suffix="${esc(s.suffix)}">${s.n}${esc(s.suffix)}</span><span class="stat__l">${esc(s.label)}</span></div>`).join("");
+  $$(".stat").forEach((el) => el.addEventListener("pointermove", (e) => { const r = el.getBoundingClientRect(); el.style.setProperty("--mx", `${e.clientX - r.left}px`); el.style.setProperty("--my", `${e.clientY - r.top}px`); }));
+
+  // Case files
+  $("#workTrack").innerHTML = P.projects.map((p, i) => {
+    const links = [];
+    if (p.live) links.push(`<a class="btn btn--solid btn--sm magnetic" href="${esc(p.live)}" target="_blank" rel="noopener"><span>${esc(p.liveLabel || "Open")}</span></a>`);
+    if (p.repo) links.push(`<a class="btn btn--sm magnetic" href="${esc(p.repo)}" target="_blank" rel="noopener"><span>View code</span></a>`);
+    links.push(`<span class="case__repo" data-hints="${esc((p.repoHints || []).join(","))}"></span>`);
+    return `<article class="case" id="case-${p.id}">
+      <div class="case__main">
+        <span class="case__kicker mono">${esc(p.kicker)}</span>
+        <h3 class="case__title">${esc(p.title)}</h3>
+        <span class="case__status${/progress|development|ongoing/i.test(p.status) ? " is-wip" : ""}">${esc(p.status)}</span>
+        <p class="case__summary">${esc(p.summary)}</p>
+        <ul class="case__points">${p.points.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>
+        <div class="case__stack">${p.stack.map((x) => `<span class="tag">${esc(x)}</span>`).join("")}</div>
+        <div class="case__links">${links.join("")}</div>
+      </div>
+      <div class="case__art"><canvas data-motif="${esc(p.motif)}" aria-hidden="true"></canvas></div>
+      <span class="case__no" aria-hidden="true">${String(i + 1).padStart(2, "0")}</span>
+    </article>`;
+  }).join("");
+
+  // Skills
+  const tabs = $("#skillTabs"), panel = $("#skillPanel");
+  tabs.innerHTML = P.skills.map((g, i) => `<button type="button" class="skills__tab" role="tab" id="tab-${i}" aria-selected="${i === 0}" aria-controls="skillPanel"><span>${esc(g.group)}</span><span class="mono">${String(g.items.length).padStart(2, "0")}</span></button>`).join("");
+  function showSkills(i) {
+    $$(".skills__tab", tabs).forEach((t, j) => t.setAttribute("aria-selected", String(j === i)));
+    panel.setAttribute("aria-labelledby", `tab-${i}`);
+    panel.innerHTML = P.skills[i].items.map((s) => `<span class="chip">${esc(s)}</span>`).join("");
+    if (hasGsap && !reduce) gsap.from($$(".chip", panel), { y: 24, opacity: 0, rotate: () => gsap.utils.random(-6, 6), duration: .6, stagger: .035, ease: "power3.out" });
+  }
+  $$(".skills__tab", tabs).forEach((t, i) => t.addEventListener("click", () => showSkills(i)));
+  showSkills(0);
+  $("#langs").innerHTML = P.languages.map((l) => `<div class="lang"><span class="lang__name">${esc(l.name)}</span><span class="lang__lvl mono">${esc(l.level)}</span><span class="lang__bar">${[1, 2, 3, 4, 5].map((n) => `<i class="${n <= l.score ? "on" : ""}"></i>`).join("")}</span></div>`).join("");
+
+  // Timeline
+  const typeLabel = { edu: "Education", work: "Work", award: "Milestone", build: "Build" };
+  $("#timelineList").innerHTML = P.timeline.map((t) => `<li class="tl"><span class="tl__date">${esc(t.date)}</span><span class="tl__pin" aria-hidden="true"></span><div class="tl__card"><span class="tl__type mono">${esc(typeLabel[t.type] || t.type)}</span><h3 class="tl__title">${esc(t.title)}</h3><span class="tl__place">${esc(t.place)}</span><p class="tl__text">${esc(t.text)}</p></div></li>`).join("");
+
+  // Honours
+  $("#honoursGrid").innerHTML = P.honours.map((h, i) => `<article class="cert"><div class="cert__seal"><canvas width="172" height="172" aria-hidden="true"></canvas><span>${["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"][i] || i + 1}</span></div><span class="cert__date mono">${esc(h.date)}</span><h3 class="cert__title">${esc(h.title)}</h3><span class="cert__org">${esc(h.org)}</span><p class="cert__text">${esc(h.text)}</p><span class="cert__shine" aria-hidden="true"></span></article>`).join("");
+
+  // Contact
+  const em = $("#cEmail"); em.textContent = P.email; em.href = `mailto:${P.email}`;
+  const ph = $("#cPhone"); ph.textContent = P.phone; ph.href = `tel:${P.phone.replace(/\s/g, "")}`;
+  $("#cLoc").textContent = `${P.location}`;
+  $("#cLinks").innerHTML = P.links.map((l) => `<a class="btn btn--sm magnetic" href="${esc(l.url)}" target="_blank" rel="noopener"><span>${esc(l.label)}</span></a>`).join("");
+  const toast = (msg) => { const t = $("#toast"); t.textContent = msg; t.classList.add("is-on"); clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove("is-on"), 1800); };
+  $$(".copy").forEach((b) => b.addEventListener("click", () => {
+    const val = b.dataset.copy === "email" ? P.email : P.phone;
+    const done = () => toast(`Copied ${val}`);
+    const fallback = () => { const el = b.dataset.copy === "email" ? em : ph; const r = document.createRange(); r.selectNodeContents(el); const s = getSelection(); s.removeAllRanges(); s.addRange(r); toast("Selected. Press Ctrl+C to copy"); };
+    try { navigator.clipboard.writeText(val).then(done, fallback); } catch (e) { fallback(); }
+  }));
+
+  /* ---------------- Rosette instances ---------------- */
+  const heroRos = new Rosette($("#heroRosette"), { alpha: .5 });
+  new Rosette($("#contactRosette"), { alpha: .35, speed: .00008, rings: [[.9, .07, 22, 12], [.66, .1, 14, 14], [.42, .09, 10, 12]] });
+  new Rosette($("#portraitRosette"), { alpha: .45, rings: [[.9, .06, 16, 12], [.62, .08, 11, 12]] });
+  $$(".cert__seal canvas").forEach((c, i) => new Rosette(c, { alpha: .8, speed: 0, rings: [[.9, .08, 14 + i * 2, 10], [.62, .1, 8 + i, 8]] }));
+
+  /* ---------------- Case art motifs ---------------- */
+  function caseArt(canvas) {
+    const ctx = canvas.getContext("2d");
+    const motif = canvas.dataset.motif;
+    let w, h, t = 0, visible = false, running = false;
+    const size = () => { const r = canvas.getBoundingClientRect(); const d = Math.min(devicePixelRatio || 1, 2); w = r.width; h = r.height; canvas.width = w * d; canvas.height = h * d; ctx.setTransform(d, 0, 0, d, 0, 0); };
+    size(); window.addEventListener("resize", () => { size(); draw(); });
+    // stable random nodes
+    let seed = 7; const rnd = () => ((seed = (seed * 9301 + 49297) % 233280) / 233280);
+    const nodes = Array.from({ length: 16 }, () => ({ x: rnd(), y: rnd(), p: rnd() * 6 }));
+    const lines = ["$ nmap -sV 192.168.56.101", "21/tcp open ftp vsftpd 2.3.4", "22/tcp open ssh OpenSSH 4.7p1", "$ msfconsole -q", "msf6 > use exploit/unix/ftp/vsftpd_234_backdoor", "msf6 > set RHOSTS 192.168.56.101", "msf6 > run", "[*] Command shell session 1 opened", "$ whoami", "root"];
+    function draw() {
+      ctx.clearRect(0, 0, w, h);
+      const b = palette.brass, b2 = palette.brass2, m = palette.muted;
+      if (motif === "network") {
+        const pts = nodes.map((n) => ({ x: 20 + n.x * (w - 40) + Math.sin(t + n.p) * 6, y: 20 + n.y * (h - 40) + Math.cos(t * .8 + n.p) * 6 }));
+        for (let i = 0; i < pts.length; i++) for (let j = i + 1; j < pts.length; j++) {
+          const d = Math.hypot(pts[i].x - pts[j].x, pts[i].y - pts[j].y);
+          if (d < Math.min(w, h) * .38) { ctx.strokeStyle = rgba(b, .5 * (1 - d / (Math.min(w, h) * .38))); ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(pts[i].x, pts[i].y); ctx.lineTo(pts[j].x, pts[j].y); ctx.stroke(); }
+        }
+        const hot = Math.floor(t * .6) % pts.length;
+        pts.forEach((p, i) => { ctx.fillStyle = i === hot ? palette.alert : b2; ctx.beginPath(); ctx.arc(p.x, p.y, i === hot ? 5 : 3, 0, 7); ctx.fill(); });
+      } else if (motif === "receipt") {
+        const rw = Math.min(200, w * .7), x = (w - rw) / 2, rh = Math.min(270, h - 40), top = (h - rh) / 2;
+        ctx.fillStyle = rgba(palette.fg, .92); ctx.beginPath(); ctx.moveTo(x, top);
+        for (let i = 0; i <= 10; i++) ctx.lineTo(x + (rw / 10) * i, top + (i % 2 ? 6 : 0));
+        ctx.lineTo(x + rw, top + rh); for (let i = 10; i >= 0; i--) ctx.lineTo(x + (rw / 10) * i, top + rh - (i % 2 ? 6 : 0)); ctx.closePath(); ctx.fill();
+        ctx.fillStyle = palette.bg; ctx.font = "600 13px 'IBM Plex Mono', monospace"; ctx.textAlign = "center";
+        ctx.fillText("SPLITSMART", w / 2, top + 30);
+        ctx.font = "11px 'IBM Plex Mono', monospace"; ctx.textAlign = "left";
+        const rows = [["Hotel", "90.00"], ["Dinner", "45.50"], ["Taxi", "18.00"], ["Museum", "24.00"]];
+        const shown = Math.min(rows.length, Math.floor((t * .8) % (rows.length + 3)));
+        rows.slice(0, shown).forEach((r, i) => { const yy = top + 58 + i * 20; ctx.fillText(r[0], x + 16, yy); ctx.textAlign = "right"; ctx.fillText(r[1], x + rw - 16, yy); ctx.textAlign = "left"; });
+        ctx.strokeStyle = palette.bg; ctx.setLineDash([3, 3]); ctx.beginPath(); ctx.moveTo(x + 14, top + rh - 64); ctx.lineTo(x + rw - 14, top + rh - 64); ctx.stroke(); ctx.setLineDash([]);
+        if (shown >= rows.length) { ctx.font = "600 11px 'IBM Plex Mono', monospace"; ctx.fillText("Anu pays Aaron 19.25", x + 16, top + rh - 40); ctx.fillText("Sam pays Aaron 15.00", x + 16, top + rh - 22); }
+      } else if (motif === "orbit") {
+        const cx = w / 2, cy = h / 2, R = Math.min(w, h) * .36;
+        ctx.strokeStyle = rgba(b, .35); ctx.beginPath(); ctx.arc(cx, cy, R, 0, 7); ctx.stroke();
+        ctx.beginPath(); ctx.arc(cx, cy, R * .55, 0, 7); ctx.stroke();
+        ctx.fillStyle = b2; ctx.beginPath(); ctx.arc(cx, cy, 14, 0, 7); ctx.fill();
+        ctx.fillStyle = palette.bg; ctx.font = "600 9px 'IBM Plex Mono', monospace"; ctx.textAlign = "center"; ctx.fillText("PM", cx, cy + 3);
+        const names = ["Research", "Writer", "Campaign", "Analyst", "Auditor", "Support", "Outbound"];
+        names.forEach((n, i) => {
+          const a = t * .35 + (i / names.length) * Math.PI * 2; const x = cx + Math.cos(a) * R, y = cy + Math.sin(a) * R;
+          const pulse = (Math.sin(t * 2 + i) + 1) / 2;
+          ctx.strokeStyle = rgba(b, .15 + pulse * .45); ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(x, y); ctx.stroke();
+          ctx.fillStyle = palette.bg2; ctx.strokeStyle = b; ctx.beginPath(); ctx.arc(x, y, 8, 0, 7); ctx.fill(); ctx.stroke();
+          ctx.fillStyle = m; ctx.font = "10px 'IBM Plex Mono', monospace"; ctx.fillText(n, x, y + 22);
+        });
+      } else if (motif === "scan") {
+        const cw = Math.min(170, w * .6), ch = Math.min(280, h * .8), x = (w - cw) / 2, y = (h - ch) / 2;
+        ctx.strokeStyle = b; ctx.lineWidth = 1.5; ctx.strokeRect(x, y, cw, ch);
+        ctx.fillStyle = rgba(palette.fg, .85); ctx.font = "600 12px 'Hanken Grotesk', sans-serif"; ctx.textAlign = "center";
+        ctx.fillText("Payment successful", w / 2, y + 40);
+        ctx.font = "600 26px 'Bodoni Moda', serif"; ctx.fillText("€250.00", w / 2, y + 80);
+        ctx.font = "10px 'IBM Plex Mono', monospace"; ctx.fillStyle = m;
+        ["TXN 8842 0193 7741", "12 Oct 2026 14:32", "To: R. Ozols"].forEach((s, i) => ctx.fillText(s, w / 2, y + 112 + i * 18));
+        const sy = y + ((t * 60) % ch);
+        const g = ctx.createLinearGradient(0, sy - 30, 0, sy); g.addColorStop(0, rgba(palette.alert, 0)); g.addColorStop(1, rgba(palette.alert, .35));
+        ctx.fillStyle = g; ctx.fillRect(x, Math.max(y, sy - 30), cw, Math.min(30, sy - y)); ctx.fillStyle = palette.alert; ctx.fillRect(x - 6, sy, cw + 12, 1.5);
+        const verdict = Math.floor(t / 2.2) % 2 ? "SUSPICIOUS" : "CHECKING";
+        ctx.font = "600 11px 'IBM Plex Mono', monospace"; ctx.fillStyle = verdict === "SUSPICIOUS" ? palette.alert : b2; ctx.fillText(verdict, w / 2, y + ch - 20);
+      } else if (motif === "terminal") {
+        ctx.font = "11px 'IBM Plex Mono', monospace"; ctx.textAlign = "left";
+        const n = Math.floor((t * 1.6) % (lines.length + 4));
+        lines.slice(0, Math.min(n, lines.length)).forEach((l, i) => { ctx.fillStyle = l.startsWith("[*]") || l === "root" ? palette.ok : l.startsWith("$") || l.startsWith("msf") ? b2 : m; ctx.fillText(l.length > 44 && w < 360 ? l.slice(0, 40) + "…" : l, 18, 34 + i * 19); });
+        if (Math.floor(t * 3) % 2) { ctx.fillStyle = b2; ctx.fillRect(18, 24 + Math.min(n, lines.length) * 19, 7, 13); }
+      }
+    }
+    function loop() { if (running || reduce) return; running = true; let last = performance.now(); const tick = (now) => { if (!visible || document.hidden) { running = false; return; } t += (now - last) / 1000; last = now; draw(); requestAnimationFrame(tick); }; requestAnimationFrame(tick); }
+    t = 6; draw();
+    if ("IntersectionObserver" in window) new IntersectionObserver((e) => { visible = e[0].isIntersecting; if (visible) loop(); }).observe(canvas);
+  }
+  $$(".case__art canvas").forEach(caseArt);
+
+  /* ---------------- Zero-Trust lab ---------------- */
+  (function lab() {
+    const svg = $("#labSvg"); const NS = "http://www.w3.org/2000/svg";
+    const mk = (tag, attrs, parent) => { const el = document.createElementNS(NS, tag); for (const k in attrs) el.setAttribute(k, attrs[k]); (parent || svg).appendChild(el); return el; };
+    const C = { x: 610, y: 248 }, R = 148;
+    const assets = [
+      { id: "mail", name: "Email", sub: "ROLE OK", allowed: true },
+      { id: "files", name: "File server", sub: "CONFIDENTIAL" },
+      { id: "crm", name: "CRM", sub: "ROLE OK", allowed: true },
+      { id: "fin", name: "Finance DB", sub: "CRITICAL" },
+      { id: "dc", name: "Domain ctrl.", sub: "CRITICAL" },
+      { id: "bak", name: "Backups", sub: "CRITICAL" }
+    ].map((a, i) => { const ang = (-90 + i * 60) * Math.PI / 180; return Object.assign(a, { x: C.x + Math.cos(ang) * R, y: C.y + Math.sin(ang) * R }); });
+    const atk = { x: 70, y: 248 }, fw = { x: 190, y: 248 }, lap = { x: 315, y: 248 }, pep = { x: 440, y: 248 };
+    mk("rect", { class: "zone", x: 252, y: 14, width: 534, height: 446, rx: 6 });
+    const zl = mk("text", { class: "zone-label", x: 266, y: 34 }); zl.textContent = "INTERNAL NETWORK · NORDVIA CONSULTING";
+    const edgesG = mk("g", {}), nodesG = mk("g", {}), fxG = mk("g", {});
+    const line = (a, b, cls) => mk("line", { class: "edge " + (cls || ""), x1: a.x, y1: a.y, x2: b.x, y2: b.y }, edgesG);
+    const node = (p, name, sub, cls, r) => {
+      r = r || 22; const up = p.y < C.y - 20 && p.x > 260;
+      const g = mk("g", { class: "node " + (cls || "") }, nodesG); mk("circle", { cx: p.x, cy: p.y, r }, g);
+      const ny = up ? p.y - r - (sub ? 24 : 10) : p.y + r + 18;
+      const t = mk("text", { x: p.x, y: ny }, g); t.textContent = name;
+      if (sub) { const s2 = mk("text", { class: "sub", x: p.x, y: ny + 13 }, g); s2.textContent = sub; }
+      return g;
+    };
+    line(atk, fw); line(fw, lap);
+    node(atk, "Attacker", "STOLEN PASSWORD", "is-entry", 20);
+    node(fw, "Firewall / VPN", "", "", 18);
+    const lapN = node(lap, "Employee laptop", "CONSULTANT", "", 22);
+    let pepG = mk("g", { class: "pep" }, nodesG); mk("circle", { cx: pep.x, cy: pep.y, r: 26 }, pepG); const pt = mk("text", { x: pep.x, y: pep.y + 4 }, pepG); pt.textContent = "POLICY";
+    const assetNodes = assets.map((a) => node(a, a.name, a.sub, "", 22));
+    let edgeEls = [], mode = "perimeter", busy = false;
+
+    function layout() {
+      edgeEls.forEach((e) => e.remove()); edgeEls = [];
+      fxG.innerHTML = "";
+      assetNodes.forEach((n) => n.classList.remove("is-hit", "is-safe")); lapN.classList.remove("is-hit");
+      pepG.style.display = mode === "zt" ? "" : "none";
+      if (mode === "perimeter") {
+        assets.forEach((a) => edgeEls.push(line(lap, a)));
+        // flat network: assets also trust each other
+        [[1, 4], [4, 3], [4, 5], [3, 5]].forEach(([i, j]) => edgeEls.push(line(assets[i], assets[j])));
+      } else {
+        edgeEls.push(line(lap, pep));
+        assets.forEach((a) => edgeEls.push(line(pep, a)));
+      }
+      setReadout(0, mode === "perimeter" ? 6 : 0, "–", mode === "perimeter" ? "Inside the perimeter, the network trusts anyone who got past the firewall." : "Every request goes through a policy check: who you are, which device, and what your role allows.");
+    }
+    function setReadout(reached, trust, risk, note, cls) {
+      $("#labReached").textContent = `${reached} / 6`; $("#labTrust").textContent = trust; const r = $("#labRisk"); r.textContent = risk;
+      r.className = cls || ""; $("#labReached").className = reached > 3 ? "is-bad" : reached > 0 ? "" : "";
+      $("#labNote").textContent = note;
+    }
+    const wait = (ms) => new Promise((r) => setTimeout(r, reduce ? 0 : ms));
+    function packet(a, b, ms, color) {
+      return new Promise((res) => {
+        if (reduce) return res();
+        const c = mk("circle", { class: "packet", r: 5, cx: a.x, cy: a.y }, fxG); if (color) c.style.fill = color;
+        const t0 = performance.now();
+        const step = (now) => { const k = Math.min(1, (now - t0) / ms); const e = 1 - Math.pow(1 - k, 3); c.setAttribute("cx", a.x + (b.x - a.x) * e); c.setAttribute("cy", a.y + (b.y - a.y) * e); k < 1 ? requestAnimationFrame(step) : (c.remove(), res()); };
+        requestAnimationFrame(step);
+      });
+    }
+    function cross(p) { const g = mk("g", {}, fxG); mk("line", { class: "blockmark", x1: p.x - 7, y1: p.y - 7, x2: p.x + 7, y2: p.y + 7 }, g); mk("line", { class: "blockmark", x1: p.x - 7, y1: p.y + 7, x2: p.x + 7, y2: p.y - 7 }, g); }
+    async function run() {
+      if (busy) return; busy = true; layout();
+      $("#runAttack").querySelector("span").textContent = "Running…";
+      await packet(atk, fw, 500); await packet(fw, lap, 500);
+      lapN.classList.add("is-hit");
+      let reached = 0;
+      if (mode === "perimeter") {
+        for (let i = 0; i < assets.length; i++) {
+          edgeEls[i].classList.add("is-hot"); await packet(lap, assets[i], 420);
+          assetNodes[i].classList.add("is-hit"); reached++;
+          setReadout(reached, 6, "High", `Reached ${assets[i].name}. No check stopped the move.`, "is-bad");
+          await wait(120);
+        }
+        edgeEls.slice(6).forEach((e) => e.classList.add("is-hot"));
+        setReadout(6, 6, "High", "The attacker reached every critical asset, including the domain controller and backups, with one password.", "is-bad");
+      } else {
+        edgeEls[0].classList.add("is-allowed"); await packet(lap, pep, 420, palette.ok);
+        for (let i = 0; i < assets.length; i++) {
+          const a = assets[i], mid = { x: pep.x + (a.x - pep.x) * .55, y: pep.y + (a.y - pep.y) * .55 };
+          if (a.allowed) { edgeEls[i + 1].classList.add("is-allowed"); await packet(pep, a, 380); assetNodes[i].classList.add("is-hit"); reached++; }
+          else { edgeEls[i + 1].classList.add("is-blocked"); await packet(pep, mid, 260); cross(mid); assetNodes[i].classList.add("is-safe"); }
+          setReadout(reached, 0, "Low", a.allowed ? `${a.name}: allowed, because a consultant needs it.` : `${a.name}: denied. Not part of this role.`, "is-good");
+          await wait(100);
+        }
+        setReadout(reached, 0, "Low", "The attacker only got what this role is allowed to use. The finance database, domain controller and backups stayed out of reach.", "is-good");
+      }
+      $("#runAttack").querySelector("span").textContent = "Run again";
+      busy = false;
+    }
+    function setMode(m) {
+      if (busy) return; mode = m;
+      $("#modePerimeter").classList.toggle("is-active", m === "perimeter"); $("#modePerimeter").setAttribute("aria-pressed", m === "perimeter");
+      $("#modeZT").classList.toggle("is-active", m === "zt"); $("#modeZT").setAttribute("aria-pressed", m === "zt");
+      $("#runAttack").querySelector("span").textContent = "Run the attack";
+      layout();
+    }
+    $("#modePerimeter").addEventListener("click", () => setMode("perimeter"));
+    $("#modeZT").addEventListener("click", () => setMode("zt"));
+    $("#runAttack").addEventListener("click", run);
+    layout();
+    // auto-run once when it scrolls into view
+    if ("IntersectionObserver" in window) {
+      const io = new IntersectionObserver((e) => { if (e[0].isIntersecting) { io.disconnect(); setTimeout(run, 400); } }, { threshold: .5 });
+      io.observe(svg);
+    }
+  })();
+
+  /* ---------------- GitHub repos ---------------- */
+  (async function github() {
+    const grid = $("#ghGrid"), status = $("#ghStatus");
+    const render = (repos, live) => {
+      grid.innerHTML = repos.map((r) => `<a class="repo" href="${esc(r.html_url)}" target="_blank" rel="noopener">
+        <div class="repo__top mono"><span>${r.fork ? "fork" : "repository"}</span><span class="repo__arrow">↗</span></div>
+        <span class="repo__name">${esc(r.name)}</span>
+        <p class="repo__desc">${esc(r.description || "No description yet.")}</p>
+        <div class="repo__meta mono">${r.language ? `<span class="repo__lang">${esc(r.language)}</span>` : ""}<span>★ ${r.stargazers_count || 0}</span><span>${new Date(r.pushed_at || r.updated_at).toLocaleDateString("en-GB", { month: "short", year: "numeric" })}</span></div>
+      </a>`).join("");
+      status.textContent = live ? `${repos.length} public ${repos.length === 1 ? "repository" : "repositories"}, updated live from GitHub` : "Showing saved repositories. Open the GitHub profile for the full list.";
+      // Link case files to matching repos
+      $$(".case__repo").forEach((slot) => {
+        const hints = slot.dataset.hints.split(",").filter(Boolean); if (!hints.length) return;
+        const m = repos.find((r) => hints.some((h) => r.name.toLowerCase().includes(h)));
+        const card = slot.closest(".case");
+        if (m && !card.querySelector(`a[href="${m.html_url}"]`)) slot.outerHTML = `<a class="btn btn--sm magnetic" href="${esc(m.html_url)}" target="_blank" rel="noopener"><span>View code</span></a>`;
+      });
+      bindMagnetic();
+      if (hasGsap && !reduce) gsap.from($$(".repo", grid), { y: 30, opacity: 0, duration: .7, stagger: .06, ease: "power3.out", scrollTrigger: { trigger: grid, start: "top 90%" } });
+    };
+    try {
+      const ctl = new AbortController(); setTimeout(() => ctl.abort(), 6000);
+      const res = await fetch(`https://api.github.com/users/${P.github}/repos?per_page=100&sort=pushed`, { signal: ctl.signal, headers: { Accept: "application/vnd.github+json" } });
+      if (!res.ok) throw new Error(res.status);
+      const data = (await res.json()).filter((r) => !r.fork && r.name.toLowerCase() !== `${P.github}.github.io`);
+      if (!data.length) throw new Error("empty");
+      render(data, true);
+    } catch (e) { render(P.fallbackRepos, false); }
+  })();
+
+  /* ---------------- Mobile menu ---------------- */
+  const menu = $("#menu"), menuBtn = $("#menuBtn");
+  const setMenu = (open) => { menu.hidden = !open; menuBtn.setAttribute("aria-expanded", String(open)); document.body.style.overflow = open ? "hidden" : ""; if (open && hasGsap && !reduce) gsap.from($$("a", menu), { y: 40, opacity: 0, stagger: .05, duration: .6, ease: "power3.out" }); };
+  menuBtn.addEventListener("click", () => setMenu(menu.hidden));
+  $$("a", menu).forEach((a) => a.addEventListener("click", () => setMenu(false)));
+
+  /* ---------------- Terminal ---------------- */
+  (function terminal() {
+    const term = $("#term"), out = $("#termOut"), input = $("#termIn");
+    const print = (html) => { out.insertAdjacentHTML("beforeend", html + "\n"); out.scrollTop = out.scrollHeight; };
+    const cmds = {
+      help: () => `<span class="t-brass">Commands</span>\n  whoami     who I am\n  about      short story\n  projects   things I've built\n  thesis     my Bachelor's thesis\n  skills     toolkit\n  education  degrees\n  contact    how to reach me\n  goto x     jump to a section (work, lab, skills, journey, honours, github, contact)\n  clear      clear the screen\n  exit       close`,
+      whoami: () => `<span class="t-ok">${esc(P.name)}</span> · ${esc(P.roles.join(" · "))}\n${esc(P.location)}`,
+      about: () => esc(P.about[0]),
+      projects: () => P.projects.map((p, i) => `<span class="t-brass">[${i + 1}]</span> ${esc(p.title)} <span class="t-dim">· ${esc(p.status)}</span>\n    ${esc(p.summary)}`).join("\n"),
+      thesis: () => { const t = P.projects[0]; return `<span class="t-brass">${esc(t.title)}</span>\n${esc(t.summary)}\n${t.points.map((x) => "  - " + esc(x)).join("\n")}`; },
+      skills: () => P.skills.map((g) => `<span class="t-brass">${esc(g.group.padEnd(16))}</span>${esc(g.items.join(", "))}`).join("\n"),
+      education: () => P.timeline.filter((t) => t.type === "edu").map((t) => `<span class="t-brass">${esc(t.date.padEnd(12))}</span>${esc(t.title)} · ${esc(t.place)}`).join("\n"),
+      contact: () => `email   ${esc(P.email)}\nphone   ${esc(P.phone)}\ngithub  github.com/${esc(P.github)}`,
+      ls: () => "about.txt  projects/  thesis.pdf  skills.json  contact.vcf",
+      sudo: (a) => a.join(" ").includes("hire") ? `<span class="t-ok">[sudo] access granted.</span> Great choice. Email ${esc(P.email)}` : `<span class="t-dim">Nice try. Zero-Trust applies here too.</span>`,
+      "nmap": () => `Starting Nmap scan on aaron.riga\nPORT     STATE  SERVICE\n443/tcp  open   curiosity\n8080/tcp open   ai-agents\n31337/tcp filtered secrets\n<span class="t-dim">Scan done: 1 human, very much up.</span>`,
+      clear: () => { out.innerHTML = ""; return null; },
+      exit: () => { close(); return null; },
+      goto: (a) => { const id = (a[0] || "").toLowerCase(); const el = $("#" + id); if (!el) return `<span class="t-dim">No section called "${esc(id)}".</span>`; close(); setTimeout(() => scrollToEl(el), 200); return null; }
+    };
+    function open() { term.hidden = false; if (!out.innerHTML) print(`<span class="t-brass">aaron.os</span> <span class="t-dim">· type <b>help</b> to start</span>`); setTimeout(() => input.focus(), 30); if (hasGsap && !reduce) gsap.from(".term__win", { y: 30, scale: .97, opacity: 0, duration: .45, ease: "power3.out" }); }
+    function close() { term.hidden = true; }
+    $("#termForm").addEventListener("submit", (e) => {
+      e.preventDefault(); const raw = input.value.trim(); input.value = ""; if (!raw) return;
+      print(`<span class="t-brass">$</span> ${esc(raw)}`);
+      const [c, ...args] = raw.split(/\s+/); const fn = cmds[c.toLowerCase()];
+      const res = fn ? fn(args) : `<span class="t-dim">command not found: ${esc(c)}. Try help.</span>`;
+      if (res) print(res);
+    });
+    $("#termBtn").addEventListener("click", open);
+    $("#termClose").addEventListener("click", close);
+    term.addEventListener("click", (e) => { if (e.target === term) close(); });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") { if (!term.hidden) close(); if (!menu.hidden) setMenu(false); }
+      const typing = /input|textarea/i.test(document.activeElement.tagName);
+      if (!typing && (e.key === "`" || e.key === "~")) { e.preventDefault(); term.hidden ? open() : close(); }
+    });
+  })();
+
+  /* ---------------- Cursor + magnetic ---------------- */
+  if (finePointer && !reduce) {
+    document.body.classList.add("has-cursor");
+    const cur = $("#cursor"), dot = $(".cursor__dot"), ring = $(".cursor__ring");
+    let x = innerWidth / 2, y = innerHeight / 2, rx = x, ry = y;
+    addEventListener("pointermove", (e) => { x = e.clientX; y = e.clientY; dot.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`; });
+    (function follow() { rx += (x - rx) * .16; ry += (y - ry) * .16; ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%)`; requestAnimationFrame(follow); })();
+    document.addEventListener("pointerover", (e) => { if (e.target.closest("a, button, .chip, .cert, .repo")) cur.classList.add("is-hover"); });
+    document.addEventListener("pointerout", (e) => { if (e.target.closest("a, button, .chip, .cert, .repo")) cur.classList.remove("is-hover"); });
+  }
+  function bindMagnetic() {
+    if (!finePointer || reduce) return;
+    $$(".magnetic").forEach((el) => {
+      if (el._mag) return; el._mag = true;
+      el.addEventListener("pointermove", (e) => { const r = el.getBoundingClientRect(); const dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height / 2); el.style.transform = `translate(${dx * .25}px, ${dy * .35}px)`; });
+      el.addEventListener("pointerleave", () => { el.style.transition = "transform .5s cubic-bezier(.2,.7,.1,1)"; el.style.transform = ""; setTimeout(() => (el.style.transition = ""), 500); });
+    });
+  }
+  bindMagnetic();
+
+  // Certificate tilt
+  if (finePointer && !reduce) $$(".cert").forEach((c) => {
+    c.addEventListener("pointermove", (e) => { const r = c.getBoundingClientRect(); const px = (e.clientX - r.left) / r.width - .5, py = (e.clientY - r.top) / r.height - .5; c.style.transform = `perspective(900px) rotateY(${px * 10}deg) rotateX(${-py * 10}deg)`; });
+    c.addEventListener("pointerleave", () => { c.style.transition = "transform .6s cubic-bezier(.2,.7,.1,1)"; c.style.transform = ""; setTimeout(() => (c.style.transition = ""), 600); });
+  });
+
+  /* ---------------- Smooth scroll ---------------- */
+  let lenis = null;
+  if (window.Lenis && !reduce) {
+    lenis = new Lenis({ lerp: .09, smoothWheel: true });
+    if (hasGsap) { lenis.on("scroll", () => window.ScrollTrigger && ScrollTrigger.update()); gsap.ticker.add((t) => lenis.raf(t * 1000)); gsap.ticker.lagSmoothing(0); }
+    else { const raf = (t) => { lenis.raf(t); requestAnimationFrame(raf); }; requestAnimationFrame(raf); }
+  }
+  function scrollToEl(el) { if (lenis) lenis.scrollTo(el, { offset: -60, duration: 1.4 }); else el.scrollIntoView({ behavior: reduce ? "auto" : "smooth" }); }
+  $$('a[href^="#"]').forEach((a) => a.addEventListener("click", (e) => { const id = a.getAttribute("href"); const el = id === "#top" ? document.body : $(id); if (!el) return; e.preventDefault(); scrollToEl(el); }));
+
+  /* ---------------- Nav state ---------------- */
+  const nav = $("#nav"), bar = $("#progress"); let lastY = 0;
+  const sections = $$("main section[id]"); const navLinks = $$(".nav__links a");
+  function onScroll() {
+    const y = window.scrollY, max = document.documentElement.scrollHeight - innerHeight;
+    nav.classList.toggle("is-scrolled", y > 40);
+    nav.classList.toggle("is-hidden", y > lastY && y > 500 && menu.hidden);
+    lastY = y;
+    bar.style.transform = `scaleX(${max > 0 ? y / max : 0})`;
+    let cur = ""; sections.forEach((s) => { if (s.getBoundingClientRect().top < innerHeight * .4) cur = s.id; });
+    navLinks.forEach((a) => a.classList.toggle("is-active", a.getAttribute("href") === "#" + cur));
+  }
+  addEventListener("scroll", onScroll, { passive: true }); onScroll();
+
+  /* ---------------- Hero: split letters ---------------- */
+  $$("[data-split]").forEach((w) => { w.innerHTML = w.textContent.split("").map((c) => `<span class="char">${esc(c)}</span>`).join(""); });
+
+  // Role swapper
+  (function roles() {
+    const el = $("#roleSwap"); let i = 0;
+    if (reduce) return;
+    setInterval(() => {
+      i = (i + 1) % P.roles.length;
+      if (hasGsap) gsap.to(el, { yPercent: -60, opacity: 0, duration: .35, ease: "power2.in", onComplete: () => { el.textContent = P.roles[i]; gsap.fromTo(el, { yPercent: 60, opacity: 0 }, { yPercent: 0, opacity: 1, duration: .5, ease: "power3.out" }); } });
+      else el.textContent = P.roles[i];
+    }, 2800);
+  })();
+
+  /* ---------------- Preloader + intro ---------------- */
+  const loader = $("#loader");
+  function heroIntro() {
+    if (!hasGsap || reduce) return;
+    const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
+    tl.from(".hero__name .char", { yPercent: 115, rotate: 6, duration: 1.3, stagger: .035 })
+      .from(".hero__eyebrow", { y: 16, opacity: 0, duration: .8 }, "-=1")
+      .from(".hero__role, .hero__intro", { y: 26, opacity: 0, duration: 1, stagger: .1 }, "-=.9")
+      .from(".hero__cta .btn", { y: 20, opacity: 0, duration: .8, stagger: .08 }, "-=.8")
+      .from(".hero__ledger > div", { y: 20, opacity: 0, duration: .8, stagger: .08 }, "-=.7")
+      .from("#heroRosette", { scale: .7, rotate: -40, opacity: 0, duration: 2.4, ease: "power3.out" }, 0)
+      .from(".nav", { yPercent: -100, duration: 1 }, .3);
+  }
+  function finishLoader() {
+    if (loader.classList.contains("is-done")) return;
+    if (hasGsap && !reduce) {
+      gsap.to(loader, { yPercent: -100, duration: 1, ease: "expo.inOut", onComplete: () => loader.classList.add("is-done") });
+      setTimeout(heroIntro, 350);
+    } else { loader.classList.add("is-done"); }
+  }
+  if (reduce || !hasGsap) { loader.classList.add("is-done"); }
+  else {
+    const lr = new Rosette($("#loaderRosette"), { alpha: .8, speed: 0, progress: 0, rings: [[.9, .07, 16, 10], [.64, .1, 11, 10], [.4, .09, 8, 8]] });
+    const count = $("#loaderCount"); const state = { p: 0 };
+    gsap.to(state, { p: 1, duration: 1.6, ease: "power2.inOut", onUpdate: () => { lr.o.progress = state.p; lr.draw(state.p * 2); count.textContent = String(Math.round(state.p * 100)).padStart(3, "0"); }, onComplete: finishLoader });
+    setTimeout(finishLoader, 4000); // safety
+  }
+
+  /* ---------------- Scroll animations ---------------- */
+  if (hasGsap && window.ScrollTrigger && !reduce) {
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Hero parallax
+    gsap.to("#heroRosette", { rotate: 60, yPercent: -20, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+    gsap.to(".hero__inner", { yPercent: 18, opacity: .2, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+
+    // Section headings
+    $$(".section__head, .work__intro").forEach((h) => gsap.from(h.children, { y: 50, opacity: 0, duration: 1.1, stagger: .1, ease: "expo.out", scrollTrigger: { trigger: h, start: "top 88%" } }));
+
+    // About
+    gsap.from("#aboutText p", { y: 40, opacity: 0, duration: 1, stagger: .12, ease: "power3.out", scrollTrigger: { trigger: "#aboutText", start: "top 85%" } });
+    gsap.from("#aboutFacts > div", { y: 20, opacity: 0, duration: .8, stagger: .06, ease: "power3.out", scrollTrigger: { trigger: "#aboutFacts", start: "top 90%" } });
+    gsap.from("#portrait", { scale: .85, rotate: -12, opacity: 0, duration: 1.4, ease: "expo.out", scrollTrigger: { trigger: "#portrait", start: "top 85%" } });
+
+    // Stats count-up
+    $$(".stat__n").forEach((el) => {
+      const end = +el.dataset.count, dec = +el.dataset.dec, suf = el.dataset.suffix, o = { v: 0 };
+      el.textContent = (0).toFixed(dec) + suf;
+      ScrollTrigger.create({ trigger: el, start: "top 90%", once: true, onEnter: () => gsap.to(o, { v: end, duration: 2, ease: "power3.out", onUpdate: () => (el.textContent = o.v.toFixed(dec) + suf) }) });
+    });
+    gsap.from(".stat", { opacity: 0, y: 30, duration: .9, stagger: .08, ease: "power3.out", scrollTrigger: { trigger: "#statsGrid", start: "top 88%" } });
+
+    // Horizontal case files on wide screens
+    const mm = gsap.matchMedia();
+    mm.add("(min-width: 900px)", () => {
+      const work = $("#work"), track = $("#workTrack"), vp = $("#workViewport");
+      work.classList.add("is-horizontal");
+      const dist = () => Math.max(0, track.scrollWidth - innerWidth);
+      const tw = gsap.to(track, { x: () => -dist(), ease: "none", scrollTrigger: { trigger: vp, start: "top top", end: () => "+=" + dist(), pin: true, scrub: 1, invalidateOnRefresh: true, anticipatePin: 1 } });
+      $$(".case", track).forEach((c) => {
+        gsap.from(c.querySelectorAll(".case__title, .case__summary, .case__points li"), { y: 30, opacity: 0, stagger: .05, duration: .8, ease: "power3.out", scrollTrigger: { trigger: c, containerAnimation: tw, start: "left 85%" } });
+      });
+      return () => work.classList.remove("is-horizontal");
+    });
+    mm.add("(max-width: 899px)", () => {
+      $$(".case").forEach((c) => gsap.from(c, { y: 60, opacity: 0, duration: 1, ease: "expo.out", scrollTrigger: { trigger: c, start: "top 88%" } }));
+    });
+
+    // Lab
+    gsap.from(".lab__panel", { y: 50, opacity: 0, duration: 1.1, ease: "expo.out", scrollTrigger: { trigger: ".lab__panel", start: "top 85%" } });
+    gsap.from(".hypo__item", { y: 30, opacity: 0, duration: .9, stagger: .12, ease: "power3.out", scrollTrigger: { trigger: "#hypo", start: "top 90%" } });
+
+    // Languages
+    gsap.from(".lang__bar i.on", { scaleX: 0, transformOrigin: "left", duration: .6, stagger: .05, ease: "power2.out", scrollTrigger: { trigger: "#langs", start: "top 90%" } });
+
+    // Timeline line draw + pins
+    const path = $("#timelinePath"), tlEl = $("#timeline");
+    const setPath = () => { const h = tlEl.offsetHeight; path.setAttribute("d", `M1,0 L1,${h}`); const len = h; path.style.strokeDasharray = len; path.style.strokeDashoffset = len; return len; };
+    setPath(); ScrollTrigger.addEventListener("refreshInit", setPath);
+    gsap.to(path, { strokeDashoffset: 0, ease: "none", scrollTrigger: { trigger: tlEl, start: "top 70%", end: "bottom 70%", scrub: true } });
+    $$(".tl").forEach((li) => {
+      ScrollTrigger.create({ trigger: li, start: "top 70%", onEnter: () => li.classList.add("is-on"), onLeaveBack: () => li.classList.remove("is-on") });
+      gsap.from(li.querySelectorAll(".tl__date, .tl__card"), { y: 30, opacity: 0, duration: .9, stagger: .08, ease: "power3.out", scrollTrigger: { trigger: li, start: "top 85%" } });
+    });
+
+    // Certificates
+    gsap.from(".cert", { y: 60, rotateX: -18, opacity: 0, duration: 1.1, stagger: .1, ease: "expo.out", scrollTrigger: { trigger: "#honoursGrid", start: "top 85%" } });
+
+    // Contact
+    gsap.from(".contact__title", { yPercent: 40, opacity: 0, duration: 1.4, ease: "expo.out", scrollTrigger: { trigger: ".contact", start: "top 75%" } });
+    gsap.to("#contactRosette", { rotate: 90, ease: "none", scrollTrigger: { trigger: ".contact", start: "top bottom", end: "bottom top", scrub: true } });
+
+    // Refresh after fonts load so measurements are right
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => ScrollTrigger.refresh());
+    addEventListener("load", () => ScrollTrigger.refresh());
+  } else {
+    // No animation library: make sure the timeline is still drawn
+    $$(".tl").forEach((li) => li.classList.add("is-on"));
+  }
+})();
+
+</script>
+</body>
+</html>
